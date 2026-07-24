@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - HECEFOP</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== COULEURS ===== */
+    :root {
+      --rouge: #c0392b;
+      --rouge-fon: #922b21;
+      --jaune: #f1c40f;
+      --or: #d4a017;
+      --noir: #1a1a2e;
+      --noir-clair: #2d2d44;
+      --krem: #fdf5e6;
+      --blanc: #ffffff;
+      --shadow: 0 20px 60px rgba(192, 57, 43, 0.15);
+      --radius: 20px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--krem);
+      color: var(--noir);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+
+    /* ===== TOP SOCIAL BAR ===== */
+    .top-bar {
+      background: var(--noir);
+      color: white;
+      padding: 8px 0;
+      font-size: 0.85rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
+      border-bottom: 2px solid var(--jaune);
+    }
+    .top-bar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .top-bar .social-icons {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+    .top-bar .social-icons a {
+      color: #94a3b8;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .top-bar .social-icons a:hover {
+      color: var(--jaune);
+      transform: translateY(-2px);
+    }
+    .top-bar .contact-info {
+      display: flex;
+      gap: 20px;
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+    .top-bar .contact-info a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .top-bar .contact-info a:hover { color: var(--jaune); }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      top: 42px;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 10px 0;
+      border-bottom: 2px solid var(--jaune);
+    }
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--noir);
+      text-decoration: none;
+    }
+    .logo img { height: 40px; width: auto; }
+    .logo span { color: var(--rouge); }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--noir);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--rouge); }
+    .nav-links a.active { color: var(--rouge); border-bottom: 2px solid var(--jaune); }
+    .nav-links .lang-toggle {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      background: var(--krem);
+      padding: 4px 8px;
+      border-radius: 30px;
+    }
+    .nav-links .lang-toggle button {
+      background: none;
+      border: none;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: 0.3s;
+      color: var(--noir-clair);
+    }
+    .nav-links .lang-toggle button.active {
+      background: var(--rouge);
+      color: white;
+    }
+    .nav-links .lang-toggle button:hover:not(.active) { background: #e2e8f0; }
+    .hamburger {
+      display: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: var(--noir);
+      background: none;
+      border: none;
+      padding: 5px;
+    }
+
+    /* ===== MENU MOBILE (slide from left) ===== */
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-overlay.active { display: block; opacity: 1; }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--noir);
+      z-index: 1002;
+      padding: 30px 25px;
+      transition: left 0.3s ease;
+      box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+      overflow-y: auto;
+    }
+    .mobile-menu.open { left: 0; }
+    .mobile-menu .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+      float: right;
+      transition: transform 0.3s;
+    }
+    .mobile-menu .close-btn:hover { transform: rotate(90deg); }
+    .mobile-menu .mobile-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin: 10px 0 30px 0;
+      text-decoration: none;
+    }
+    .mobile-menu .mobile-logo img { height: 35px; width: auto; }
+    .mobile-menu .mobile-logo span { color: var(--jaune); }
+    .mobile-menu .mobile-links {
+      list-style: none;
+      padding: 0;
+    }
+    .mobile-menu .mobile-links li { margin-bottom: 5px; }
+    .mobile-menu .mobile-links a {
+      display: block;
+      padding: 12px 15px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+    .mobile-menu .mobile-links a:hover,
+    .mobile-menu .mobile-links a.active {
+      background: rgba(241, 196, 15, 0.1);
+      color: var(--jaune);
+    }
+    .mobile-menu .mobile-links a i { width: 25px; color: var(--jaune); }
+    .mobile-menu .mobile-lang {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .mobile-menu .mobile-lang button {
+      padding: 8px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.3s;
+      flex: 1;
+    }
+    .mobile-menu .mobile-lang button.active {
+      background: var(--jaune);
+      color: var(--noir);
+      border-color: var(--jaune);
+    }
+    .mobile-menu .mobile-lang button:hover:not(.active) {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ===== PAGE HEADER - SANTRE BYEN ===== */
+    .page-header {
+      background: var(--noir);
+      color: white;
+      text-align: center;
+      border-bottom: 3px solid var(--jaune);
+      position: relative;
+      overflow: hidden;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 0 60px;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600&h=500&fit=crop') center/cover no-repeat;
+      opacity: 0.25;
+      z-index: 0;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(192, 57, 43, 0.5) 100%);
+      z-index: 0;
+    }
+    .page-header .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+    .page-header h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .page-header h1 span { color: var(--jaune); }
+    .page-header p {
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+    .page-header .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: white;
+      text-decoration: none;
+      background: rgba(241, 196, 15, 0.2);
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      transition: 0.3s;
+      border: 1px solid rgba(241, 196, 15, 0.2);
+    }
+    .page-header .back-link:hover { background: rgba(241, 196, 15, 0.4); }
+
+    /* ===== CONTACT ===== */
+    .contact-wrapper {
+      display: flex;
+      gap: 50px;
+      flex-wrap: wrap;
+      background: white;
+      padding: 50px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 2px solid var(--krem);
+      margin: 50px 0;
+    }
+    .contact-info {
+      flex: 1;
+      min-width: 280px;
+    }
+    .contact-info h3 {
+      color: var(--noir);
+      margin-bottom: 25px;
+      font-size: 1.3rem;
+    }
+    .contact-info .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .contact-info .info-item i {
+      color: var(--rouge);
+      font-size: 1.2rem;
+      width: 25px;
+      margin-top: 4px;
+    }
+    .contact-info .info-item .label {
+      font-weight: 600;
+      color: var(--noir);
+      font-size: 0.9rem;
+    }
+    .contact-info .info-item .value {
+      color: var(--noir-clair);
+      font-size: 0.95rem;
+    }
+    .contact-info .info-item a {
+      color: var(--noir-clair);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .contact-info .info-item a:hover { color: var(--rouge); }
+
+    .contact-info .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+    .contact-info .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--krem);
+      color: var(--noir);
+      font-size: 1.2rem;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .contact-info .social-links a:hover {
+      background: var(--rouge);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .contact-info .hours {
+      margin-top: 25px;
+      padding: 18px 22px;
+      background: var(--krem);
+      border-radius: 12px;
+      border-left: 4px solid var(--jaune);
+    }
+    .contact-info .hours p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--noir-clair);
+    }
+    .contact-info .hours strong {
+      color: var(--noir);
+    }
+
+    /* ===== FORMULAIRE ===== */
+    .contact-form {
+      flex: 2;
+      min-width: 300px;
+    }
+    .contact-form h3 {
+      color: var(--noir);
+      margin-bottom: 25px;
+      font-size: 1.3rem;
+    }
+    .contact-form .form-group {
+      margin-bottom: 18px;
+    }
+    .contact-form .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--noir);
+      margin-bottom: 5px;
+    }
+    .contact-form .form-group label .required {
+      color: var(--rouge);
+    }
+    .contact-form .form-group input,
+    .contact-form .form-group textarea {
+      width: 100%;
+      padding: 13px 18px;
+      border: 2px solid var(--krem);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      transition: 0.3s;
+      font-family: inherit;
+      background: var(--blanc);
+    }
+    .contact-form .form-group input:focus,
+    .contact-form .form-group textarea:focus {
+      outline: none;
+      border-color: var(--rouge);
+      box-shadow: 0 0 0 4px rgba(192, 57, 43, 0.1);
+    }
+    .contact-form .form-group textarea {
+      height: 130px;
+      resize: vertical;
+    }
+    .contact-form .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--rouge);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+    .contact-form .btn-submit:hover {
+      background: var(--rouge-fon);
+      transform: translateY(-3px);
+    }
+    .contact-form .btn-submit i {
+      margin-right: 8px;
+    }
+
+    /* ===== MAP ===== */
+    .map-section {
+      background: white;
+      border-radius: var(--radius);
+      padding: 30px;
+      border: 2px solid var(--krem);
+      margin-bottom: 50px;
+      text-align: center;
+    }
+    .map-section h3 {
+      color: var(--noir);
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .map-section iframe {
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+      border: 2px solid var(--jaune);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--noir);
+      color: #cbd5e1;
+      padding: 30px 0;
+      text-align: center;
+      border-top: 3px solid var(--jaune);
+    }
+    footer .socials {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 15px;
+    }
+    footer .socials a {
+      color: white;
+      font-size: 1.4rem;
+      transition: 0.3s;
+    }
+    footer .socials a:hover {
+      color: var(--jaune);
+      transform: translateY(-3px);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .top-bar .container { justify-content: center; }
+      .top-bar .contact-info { display: none; }
+      nav { top: 38px; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .mobile-overlay.active { display: block; }
+
+      .page-header {
+        min-height: 300px;
+        padding: 80px 0 40px;
+      }
+      .page-header h1 { font-size: 2rem; }
+
+      .contact-wrapper {
+        padding: 25px;
+        flex-direction: column;
+      }
+      .map-section iframe { height: 200px; }
+    }
+    @media (max-width: 480px) {
+      .page-header h1 { font-size: 1.6rem; }
+      .page-header {
+        min-height: 250px;
+        padding: 70px 0 30px;
+      }
+      .mobile-menu { width: 260px; left: -260px; }
+      .contact-wrapper { padding: 20px; }
+      .contact-info .social-links a {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP SOCIAL BAR ===== -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="social-icons">
+        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="mailto:info@hecefop.com"><i class="fas fa-envelope"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="contact-info">
+        <span><i class="fas fa-phone"></i> (+509) 33 87 35 21</span>
+        <span><i class="fas fa-envelope"></i> info@hecefop.com</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <div class="container nav-content">
+      <a href="index.html" class="logo">
+        <img src="hecefop.png" alt="HECEFOP Logo">
+        <span>HECEFOP</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" data-key="nav-home">Accueil</a></li>
+        <li><a href="a-propos.html" data-key="nav-about">À propos</a></li>
+        <li><a href="formations.html" data-key="nav-trainings">Formations</a></li>
+        <li><a href="blog.html" data-key="nav-blog">Blog</a></li>
+        <li><a href="contact.html" class="active" data-key="nav-contact">Contact</a></li>
+        <li>
+          <div class="lang-toggle">
+            <button class="active" data-lang="fr" onclick="switchLang('fr')">FR</button>
+            <button data-lang="en" onclick="switchLang('en')">EN</button>
+          </div>
+        </li>
+      </ul>
+      <button class="hamburger" onclick="openMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY & MENU ===== -->
+  <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-btn" onclick="closeMobileMenu()">&times;</button>
+    <a href="index.html" class="mobile-logo">
+      <img src="hecefop.png" alt="HECEFOP Logo">
+      <span>HECEFOP</span>
+    </a>
+    <ul class="mobile-links">
+      <li><a href="index.html" data-key="nav-home"><i class="fas fa-home"></i> Accueil</a></li>
+      <li><a href="a-propos.html" data-key="nav-about"><i class="fas fa-info-circle"></i> À propos</a></li>
+      <li><a href="formations.html" data-key="nav-trainings"><i class="fas fa-calendar-alt"></i> Formations</a></li>
+      <li><a href="blog.html" data-key="nav-blog"><i class="fas fa-pen-fancy"></i> Blog</a></li>
+      <li><a href="contact.html" class="active" data-key="nav-contact"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    <div class="mobile-lang">
+      <button class="active" data-lang="fr" onclick="switchLang('fr')">FR</button>
+      <button data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <div class="page-header">
+    <div class="container">
+      <h1>📬 Contactez-<span>nous</span></h1>
+      <p data-key="header-desc">Une question ? Une suggestion ? N'hésitez pas à nous écrire.</p>
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> <span data-key="back-home">Retour à l'accueil</span></a>
+    </div>
+  </div>
+
+  <!-- ===== CONTACT ===== -->
+  <div class="container">
+
+    <div class="contact-wrapper">
+
+      <!-- ===== INFOS CONTACT ===== -->
+      <div class="contact-info">
+        <h3 data-key="contact-title">📌 Nos coordonnées</h3>
+
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <div class="label" data-key="label-address">Adresse</div>
+            <div class="value">Pétion-Ville, Haïti</div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="fas fa-phone-alt"></i>
+          <div>
+            <div class="label" data-key="label-phone">Téléphone</div>
+            <div class="value"><a href="tel:+50933873521">(+509) 33 87 35 21</a></div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <div class="label" data-key="label-email">Email</div>
+            <div class="value"><a href="mailto:info@hecefop.com">info@hecefop.com</a></div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="fas fa-globe"></i>
+          <div>
+            <div class="label" data-key="label-website">Site web</div>
+            <div class="value"><a href="https://roosbenjean46.github.io" target="_blank">roosbenjean46.github.io</a></div>
+          </div>
+        </div>
+
+        <!-- ===== RESEAUX SOCIAUX ===== -->
+        <div class="social-links">
+          <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="mailto:info@hecefop.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+
+        <!-- ===== HORAIRES ===== -->
+        <div class="hours">
+          <p><strong data-key="hours-title">🕐 Horaires d'ouverture</strong></p>
+          <p data-key="hours-desc">Lundi - Vendredi : 8h00 - 17h00<br>Samedi : 8h00 - 12h00</p>
+        </div>
+      </div>
+
+      <!-- ===== FORMULAIRE ===== -->
+      <div class="contact-form">
+        <h3 data-key="form-title">✉️ Envoyez-nous un message</h3>
+        <form id="contactForm" action="https://formsubmit.co/info@hecefop.com" method="POST">
+
+          <div class="form-group">
+            <label for="name" data-key="form-name">Nom complet <span class="required">*</span></label>
+            <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email" data-key="form-email">Adresse email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="subject" data-key="form-subject">Sujet</label>
+            <input type="text" id="subject" name="subject" placeholder="Sujet de votre message">
+          </div>
+
+          <div class="form-group">
+            <label for="message" data-key="form-message">Message <span class="required">*</span></label>
+            <textarea id="message" name="message" placeholder="Votre message..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" data-key="form-btn">
+            <i class="fas fa-paper-plane"></i> Envoyer le message
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- ===== MAP ===== -->
+    <div class="map-section">
+      <h3 data-key="map-title">📍 Notre localisation</h3>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37823.82989810435!2d-72.335869!3d18.511061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e2d6b1ff47d1%3A0x4d15f8e7f5f5c7d9!2sP%C3%A9tion-Ville%2C%20Ha%C3%AFti!5e0!3m2!1sfr!2sus!4v1690000000000!5m2!1sfr!2sus" 
+        allowfullscreen 
+        loading="lazy">
+      </iframe>
+    </div>
+
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="socials">
+        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="mailto:info@hecefop.com"><i class="fas fa-envelope"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p style="margin-bottom: 5px;" data-key="footer-text">© 2026 HECEFOP - Centre de Formation Professionnelle</p>
+      <p style="font-size: 0.85rem; opacity: 0.7;" data-key="footer-rights">Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== MENU MOBILE =====
+    function openMobileMenu() {
+      document.getElementById('mobileMenu').classList.add('open');
+      document.getElementById('mobileOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.getElementById('mobileOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+
+    // ===== LANGUE =====
+    const translations = {
+      fr: {
+        'nav-home': 'Accueil',
+        'nav-about': 'À propos',
+        'nav-trainings': 'Formations',
+        'nav-blog': 'Blog',
+        'nav-contact': 'Contact',
+        'header-desc': 'Une question ? Une suggestion ? N\'hésitez pas à nous écrire.',
+        'back-home': 'Retour à l\'accueil',
+        'contact-title': '📌 Nos coordonnées',
+        'label-address': 'Adresse',
+        'label-phone': 'Téléphone',
+        'label-email': 'Email',
+        'label-website': 'Site web',
+        'hours-title': '🕐 Horaires d\'ouverture',
+        'hours-desc': 'Lundi - Vendredi : 8h00 - 17h00\nSamedi : 8h00 - 12h00',
+        'form-title': '✉️ Envoyez-nous un message',
+        'form-name': 'Nom complet',
+        'form-email': 'Adresse email',
+        'form-subject': 'Sujet',
+        'form-message': 'Message',
+        'form-btn': 'Envoyer le message',
+        'map-title': '📍 Notre localisation',
+        'footer-text': '© 2026 HECEFOP - Centre de Formation Professionnelle',
+        'footer-rights': 'Tous droits réservés'
+      },
+      en: {
+        'nav-home': 'Home',
+        'nav-about': 'About',
+        'nav-trainings': 'Trainings',
+        'nav-blog': 'Blog',
+        'nav-contact': 'Contact',
+        'header-desc': 'A question? A suggestion? Feel free to write to us.',
+        'back-home': 'Back to home',
+        'contact-title': '📌 Our contact details',
+        'label-address': 'Address',
+        'label-phone': 'Phone',
+        'label-email': 'Email',
+        'label-website': 'Website',
+        'hours-title': '🕐 Opening hours',
+        'hours-desc': 'Monday - Friday: 8:00am - 5:00pm\nSaturday: 8:00am - 12:00pm',
+        'form-title': '✉️ Send us a message',
+        'form-name': 'Full name',
+        'form-email': 'Email address',
+        'form-subject': 'Subject',
+        'form-message': 'Message',
+        'form-btn': 'Send message',
+        'map-title': '📍 Our location',
+        'footer-text': '© 2026 HECEFOP - Professional Training Center',
+        'footer-rights': 'All rights reserved'
+      }
+    };
+
+    let currentLang = 'fr';
+
+    function switchLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('.lang-toggle button, .mobile-lang button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.dataset.key;
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', function() {
+      switchLang('fr');
+    });
+  </script>
+
+</body>
+</html>

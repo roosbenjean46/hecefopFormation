@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HECEFOP - Centre de Formation Professionnelle</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== COULEURS ===== */
+    :root {
+      --rouge: #c0392b;
+      --rouge-fon: #922b21;
+      --jaune: #f1c40f;
+      --or: #d4a017;
+      --noir: #1a1a2e;
+      --noir-clair: #2d2d44;
+      --krem: #fdf5e6;
+      --blanc: #ffffff;
+      --shadow: 0 20px 60px rgba(192, 57, 43, 0.15);
+      --radius: 20px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--krem);
+      color: var(--noir);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+
+    /* ===== TOP SOCIAL BAR ===== */
+    .top-bar {
+      background: var(--noir);
+      color: white;
+      padding: 8px 0;
+      font-size: 0.85rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
+      border-bottom: 2px solid var(--jaune);
+    }
+    .top-bar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .top-bar .social-icons {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+    .top-bar .social-icons a {
+      color: #94a3b8;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .top-bar .social-icons a:hover {
+      color: var(--jaune);
+      transform: translateY(-2px);
+    }
+    .top-bar .contact-info {
+      display: flex;
+      gap: 20px;
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+    .top-bar .contact-info a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .top-bar .contact-info a:hover { color: var(--jaune); }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      top: 42px;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 10px 0;
+      border-bottom: 2px solid var(--jaune);
+    }
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--noir);
+      text-decoration: none;
+    }
+    .logo img { height: 40px; width: auto; }
+    .logo span { color: var(--rouge); }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--noir);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--rouge); }
+    .nav-links a.active { color: var(--rouge); border-bottom: 2px solid var(--jaune); }
+    .nav-links .lang-toggle {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      background: var(--krem);
+      padding: 4px 8px;
+      border-radius: 30px;
+    }
+    .nav-links .lang-toggle button {
+      background: none;
+      border: none;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: 0.3s;
+      color: var(--noir-clair);
+    }
+    .nav-links .lang-toggle button.active {
+      background: var(--rouge);
+      color: white;
+    }
+    .nav-links .lang-toggle button:hover:not(.active) { background: #e2e8f0; }
+    .hamburger {
+      display: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: var(--noir);
+      background: none;
+      border: none;
+      padding: 5px;
+    }
+
+    /* ===== MENU MOBILE (slide from left) ===== */
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-overlay.active { display: block; opacity: 1; }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--noir);
+      z-index: 1002;
+      padding: 30px 25px;
+      transition: left 0.3s ease;
+      box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+      overflow-y: auto;
+    }
+    .mobile-menu.open { left: 0; }
+    .mobile-menu .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+      float: right;
+      transition: transform 0.3s;
+    }
+    .mobile-menu .close-btn:hover { transform: rotate(90deg); }
+    .mobile-menu .mobile-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin: 10px 0 30px 0;
+      text-decoration: none;
+    }
+    .mobile-menu .mobile-logo img { height: 35px; width: auto; }
+    .mobile-menu .mobile-logo span { color: var(--jaune); }
+    .mobile-menu .mobile-links {
+      list-style: none;
+      padding: 0;
+    }
+    .mobile-menu .mobile-links li { margin-bottom: 5px; }
+    .mobile-menu .mobile-links a {
+      display: block;
+      padding: 12px 15px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+    .mobile-menu .mobile-links a:hover,
+    .mobile-menu .mobile-links a.active {
+      background: rgba(241, 196, 15, 0.1);
+      color: var(--jaune);
+    }
+    .mobile-menu .mobile-links a i { width: 25px; color: var(--jaune); }
+    .mobile-menu .mobile-lang {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .mobile-menu .mobile-lang button {
+      padding: 8px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.3s;
+      flex: 1;
+    }
+    .mobile-menu .mobile-lang button.active {
+      background: var(--jaune);
+      color: var(--noir);
+      border-color: var(--jaune);
+    }
+    .mobile-menu .mobile-lang button:hover:not(.active) {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 150px 0 70px;
+      background: var(--noir);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600&h=600&fit=crop') center/cover no-repeat;
+      opacity: 0.25;
+      z-index: 0;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(192, 57, 43, 0.4) 100%);
+      z-index: 0;
+    }
+    .hero .container { position: relative; z-index: 1; }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(241, 196, 15, 0.2);
+      color: var(--jaune);
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(241, 196, 15, 0.15);
+    }
+    .hero .badge i { margin-right: 8px; }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+    .hero h1 span { color: var(--jaune); }
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      opacity: 0.95;
+    }
+    .hero .btn-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero .btn {
+      display: inline-block;
+      padding: 14px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+    .hero .btn-primary {
+      background: var(--jaune);
+      color: var(--noir);
+      box-shadow: 0 8px 30px rgba(241, 196, 15, 0.3);
+    }
+    .hero .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(241, 196, 15, 0.5);
+    }
+    .hero .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .hero .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-3px);
+    }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 70px 0; }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--noir);
+      text-align: center;
+    }
+    .section-title span { color: var(--rouge); }
+    .section-sub {
+      color: var(--noir-clair);
+      margin-bottom: 40px;
+      font-size: 1.05rem;
+      text-align: center;
+    }
+
+    /* ===== FORMATIONS (FOTO ANLÈ, DESKRIPSYON ANBA) ===== */
+    .formations-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .formation-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      border: 2px solid var(--krem);
+      transition: 0.3s;
+    }
+    .formation-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--jaune);
+    }
+    .formation-card .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      background: var(--krem);
+    }
+    .formation-card .card-body {
+      padding: 20px 25px 25px;
+    }
+    .formation-card .status {
+      display: inline-block;
+      padding: 3px 14px;
+      border-radius: 30px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .formation-card .status.upcoming { background: var(--jaune); color: var(--noir); }
+    .formation-card .status.past { background: var(--krem); color: var(--noir-clair); }
+    .formation-card h3 {
+      font-size: 1.15rem;
+      color: var(--noir);
+      margin-bottom: 5px;
+    }
+    .formation-card .date {
+      font-size: 0.8rem;
+      color: var(--noir-clair);
+      margin-bottom: 8px;
+    }
+    .formation-card .date i { color: var(--rouge); }
+    .formation-card .description {
+      color: var(--noir-clair);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .formation-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .formation-card .tags span {
+      background: var(--krem);
+      padding: 3px 12px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--noir-clair);
+    }
+    .formation-card .btn-link {
+      color: var(--rouge);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+    .formation-card .btn-link:hover { color: var(--rouge-fon); }
+
+    /* ===== BLOG ===== */
+    .blog-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .blog-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      border: 2px solid var(--krem);
+      transition: 0.3s;
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--rouge);
+    }
+    .blog-card .blog-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      background: var(--krem);
+    }
+    .blog-card .blog-body {
+      padding: 20px 25px 25px;
+    }
+    .blog-card h3 {
+      font-size: 1.15rem;
+      color: var(--noir);
+      margin-bottom: 8px;
+    }
+    .blog-card .blog-meta {
+      display: flex;
+      gap: 15px;
+      font-size: 0.8rem;
+      color: var(--noir-clair);
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .blog-card .blog-meta i { color: var(--rouge); width: 16px; }
+    .blog-card .blog-excerpt {
+      color: var(--noir-clair);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .blog-card .blog-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--krem);
+    }
+    .blog-card .blog-author .avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: var(--rouge);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .blog-card .blog-author .author-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--noir);
+    }
+    .blog-card .blog-author .author-role {
+      font-size: 0.75rem;
+      color: var(--noir-clair);
+    }
+
+    .btn-voir-tout {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 35px;
+      background: var(--rouge);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+    .btn-voir-tout:hover {
+      background: var(--rouge-fon);
+      transform: translateY(-2px);
+    }
+
+    /* ===== NEWSLETTER ===== */
+    .newsletter-section {
+      background: var(--noir);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=400&fit=crop') center/cover no-repeat;
+      opacity: 0.1;
+    }
+    .newsletter-section .container { position: relative; z-index: 1; }
+    .newsletter-section .section-title { color: white; }
+    .newsletter-section .section-sub { color: #94a3b8; }
+    .newsletter-form {
+      display: flex;
+      max-width: 550px;
+      margin: 0 auto;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .newsletter-form input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 20px;
+      border-radius: 50px;
+      border: 2px solid var(--jaune);
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .newsletter-form input:focus { border-color: var(--or); }
+    .newsletter-form button {
+      padding: 12px 30px;
+      background: var(--jaune);
+      color: var(--noir);
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .newsletter-form button:hover {
+      transform: scale(1.05);
+      background: var(--or);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--noir);
+      color: #cbd5e1;
+      padding: 30px 0;
+      text-align: center;
+      border-top: 3px solid var(--jaune);
+    }
+    footer .socials {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 15px;
+    }
+    footer .socials a {
+      color: white;
+      font-size: 1.4rem;
+      transition: 0.3s;
+    }
+    footer .socials a:hover {
+      color: var(--jaune);
+      transform: translateY(-3px);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .top-bar .container { justify-content: center; }
+      .top-bar .contact-info { display: none; }
+      nav { top: 38px; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .mobile-overlay.active { display: block; }
+      .hero h1 { font-size: 2rem; }
+      .hero { padding: 130px 0 50px; min-height: 400px; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.6rem; }
+      .section-title { font-size: 1.5rem; }
+      .mobile-menu { width: 260px; left: -260px; }
+      .formations-preview { grid-template-columns: 1fr; }
+      .blog-preview { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP SOCIAL BAR ===== -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="social-icons">
+        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="mailto:info@hecefop.com"><i class="fas fa-envelope"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="contact-info">
+        <span><i class="fas fa-phone"></i> (+509) 33 87 35 21</span>
+        <span><i class="fas fa-envelope"></i> info@hecefop.com</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <div class="container nav-content">
+      <a href="index.html" class="logo">
+        <img src="hecefop.png" alt="HECEFOP Logo">
+        <span>HECEFOP</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active" data-key="nav-home">Accueil</a></li>
+        <li><a href="a-propos.html" data-key="nav-about">À propos</a></li>
+        <li><a href="formations.html" data-key="nav-trainings">Formations</a></li>
+        <li><a href="blog.html" data-key="nav-blog">Blog</a></li>
+        <li><a href="contact.html" data-key="nav-contact">Contact</a></li>
+        <li>
+          <div class="lang-toggle">
+            <button class="active" data-lang="fr" onclick="switchLang('fr')">FR</button>
+            <button data-lang="en" onclick="switchLang('en')">EN</button>
+          </div>
+        </li>
+      </ul>
+      <button class="hamburger" onclick="openMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY & MENU ===== -->
+  <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-btn" onclick="closeMobileMenu()">&times;</button>
+    <a href="index.html" class="mobile-logo">
+      <img src="hecefop.png" alt="HECEFOP Logo">
+      <span>HECEFOP</span>
+    </a>
+    <ul class="mobile-links">
+      <li><a href="index.html" class="active" data-key="nav-home"><i class="fas fa-home"></i> Accueil</a></li>
+      <li><a href="a-propos.html" data-key="nav-about"><i class="fas fa-info-circle"></i> À propos</a></li>
+      <li><a href="formations.html" data-key="nav-trainings"><i class="fas fa-calendar-alt"></i> Formations</a></li>
+      <li><a href="blog.html" data-key="nav-blog"><i class="fas fa-pen-fancy"></i> Blog</a></li>
+      <li><a href="contact.html" data-key="nav-contact"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    <div class="mobile-lang">
+      <button class="active" data-lang="fr" onclick="switchLang('fr')">FR</button>
+      <button data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="accueil">
+    <div class="container">
+      <div class="badge" data-key="hero-badge"><i class="fas fa-graduation-cap"></i> Centre de Formation Professionnelle</div>
+      <h1 data-key="hero-title">Formez-vous aux <span>technologies</span> de demain</h1>
+      <p data-key="hero-desc">
+        HECEFOP vous accompagne dans votre développement professionnel avec des formations de qualité
+        en informatique, développement personnel et technologies émergentes.
+      </p>
+      <div class="btn-group">
+        <a href="formations.html" class="btn btn-primary" data-key="hero-btn"><i class="fas fa-calendar-alt"></i> Voir nos formations</a>
+        <a href="contact.html" class="btn btn-outline" data-key="hero-btn2"><i class="fas fa-phone"></i> Nous contacter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FORMATIONS (FOTO ANLÈ, DESKRIPSYON ANBA) ===== -->
+  <section id="formations-preview" style="background: var(--krem);">
+    <div class="container">
+      <h2 class="section-title" data-key="formations-title"> Nos formations à venir</h2>
+      <p class="section-sub" data-key="formations-sub">Découvrez nos prochaines formations et inscrivez-vous dès maintenant.</p>
+      <div class="formations-preview" id="previewFormations"></div>
+      <div style="text-align: center;">
+        <a href="formations.html" class="btn-voir-tout" data-key="formations-btn"><i class="fas fa-arrow-right"></i> Voir toutes les formations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLOG ===== -->
+  <section id="blog-preview" style="background: white;">
+    <div class="container">
+      <h2 class="section-title" data-key="blog-title"> Derniers <span>articles</span></h2>
+      <p class="section-sub" data-key="blog-sub">Retrouvez nos conseils, astuces et actualités du monde de la technologie.</p>
+      <div class="blog-preview" id="previewBlog"></div>
+      <div style="text-align: center;">
+        <a href="blog.html" class="btn-voir-tout" data-key="blog-btn"><i class="fas fa-arrow-right"></i> Voir tous les articles</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <section class="newsletter-section" id="newsletter">
+    <div class="container">
+      <h2 class="section-title" data-key="newsletter-title"> <span style="color: var(--jaune);">Newsletter</span></h2>
+      <p class="section-sub" data-key="newsletter-sub">Abonnez-vous pour recevoir les prochaines formations et les actualités de HECEFOP.</p>
+      <form class="newsletter-form" action="https://formsubmit.co/info@hecefop.com" method="POST">
+        <input type="email" name="email" placeholder="Votre adresse email" required>
+        <button type="submit" data-key="newsletter-btn">S'abonner</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="socials">
+        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="mailto:info@hecefop.com"><i class="fas fa-envelope"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p style="margin-bottom: 5px;" data-key="footer-text">© 2026 HECEFOP - Centre de Formation Professionnelle</p>
+      <p style="font-size: 0.85rem; opacity: 0.7;" data-key="footer-rights">Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== MENU MOBILE =====
+    function openMobileMenu() {
+      document.getElementById('mobileMenu').classList.add('open');
+      document.getElementById('mobileOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.getElementById('mobileOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+
+    // ===== DONNÉES FORMATIONS AVEC IMAGES DEPUIS ASSETS =====
+    const formationsData = [
+      {
+        id: 1,
+        title_fr: "Introduction à l'Intelligence Artificielle",
+        title_en: "Introduction to Artificial Intelligence",
+        date: "2026-07-28",
+        description_fr: "Découvrez les bases de l'IA, les modèles de langage et comment les utiliser dans votre quotidien professionnel.",
+        description_en: "Discover the basics of AI, language models and how to use them in your daily professional life.",
+        image: "assets/formation-ia.jpg",
+        tags_fr: ["IA", "ChatGPT", "Automatisation"],
+        tags_en: ["AI", "ChatGPT", "Automation"],
+        status: "upcoming",
+        link: "https://meet.google.com/abc-defg-hij"
+      },
+      {
+        id: 2,
+        title_fr: "Développement Web Moderne",
+        title_en: "Modern Web Development",
+        date: "2026-08-04",
+        description_fr: "Maîtrisez les fondamentaux du développement web avec HTML, CSS, JavaScript et les frameworks modernes.",
+        description_en: "Master the fundamentals of web development with HTML, CSS, JavaScript and modern frameworks.",
+        image: "assets/formation-web.jpg",
+        tags_fr: ["HTML", "CSS", "JavaScript", "React"],
+        tags_en: ["HTML", "CSS", "JavaScript", "React"],
+        status: "upcoming",
+        link: "https://meet.google.com/abc-defg-hij"
+      },
+      {
+        id: 3,
+        title_fr: "Gestion de Projet Agile",
+        title_en: "Agile Project Management",
+        date: "2026-08-11",
+        description_fr: "Apprenez les méthodologies agiles (Scrum, Kanban) pour gérer vos projets efficacement en équipe.",
+        description_en: "Learn Agile methodologies (Scrum, Kanban) to manage your projects effectively as a team.",
+        image: "assets/formation-agile.jpg",
+        tags_fr: ["Agile", "Scrum", "Gestion"],
+        tags_en: ["Agile", "Scrum", "Management"],
+        status: "upcoming",
+        link: "https://meet.google.com/abc-defg-hij"
+      }
+    ];
+
+    // ===== DONNÉES BLOG AVEC IMAGES DEPUIS ASSETS =====
+    const blogsData = [
+      {
+        id: 1,
+        title_fr: "Les tendances IA en 2026",
+        title_en: "AI Trends in 2026",
+        date: "2026-07-15",
+        image: "assets/blog-ia.jpg",
+        excerpt_fr: "Découvrez les tendances majeures de l'intelligence artificielle pour l'année 2026.",
+        excerpt_en: "Discover the major trends in artificial intelligence for 2026.",
+        author: "Roosben Jean",
+        author_role: "Expert IA"
+      },
+      {
+        id: 2,
+        title_fr: "Les bases du développement web",
+        title_en: "Web Development Basics",
+        date: "2026-07-10",
+        image: "assets/blog-web.jpg",
+        excerpt_fr: "Un guide complet pour débuter dans le développement web.",
+        excerpt_en: "A complete guide to get started in web development.",
+        author: "Marie Paul",
+        author_role: "Développeuse"
+      },
+      {
+        id: 3,
+        title_fr: "Pourquoi apprendre la gestion de projet ?",
+        title_en: "Why learn project management?",
+        date: "2026-07-05",
+        image: "assets/blog-gestion.jpg",
+        excerpt_fr: "La gestion de projet est une compétence clé pour tout professionnel.",
+        excerpt_en: "Project management is a key skill for any professional.",
+        author: "Jean Claude",
+        author_role: "Chef de projet"
+      }
+    ];
+
+    // ===== CHARGER FORMATIONS =====
+    function loadFormations() {
+      const container = document.getElementById('previewFormations');
+      
+      // Filtrer les formations à venir (3 premiers)
+      const upcoming = formationsData.filter(f => f.status === 'upcoming').slice(0, 3);
+      
+      if (upcoming.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--noir-clair);">
+            <i class="fas fa-calendar-alt" style="font-size: 2rem; display: block; margin-bottom: 10px; color: var(--rouge);"></i>
+            <span data-key="no-formations">Aucune formation à venir pour le moment. Revenez bientôt !</span>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = upcoming.map(f => {
+        // Construction du chemin de l'image
+        const imagePath = f.image || 'assets/default-formation.jpg';
+        
+        return `
+          <div class="formation-card">
+            <img src="${imagePath}" alt="${f.title_fr}" class="card-img" loading="lazy">
+            <div class="card-body">
+              <span class="status ${f.status}">${f.status === 'upcoming' ? 'À venir' : 'Passée'}</span>
+              <h3>${f.title_fr}</h3>
+              <div class="date"><i class="fas fa-calendar-alt"></i> ${new Date(f.date).toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'})}</div>
+              <div class="description">${f.description_fr}</div>
+              <div class="tags">
+                ${f.tags_fr.map(t => `<span>${t}</span>`).join('')}
+              </div>
+              <a href="formations.html" class="btn-link" data-key="view-training">Voir la formation →</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ===== CHARGER BLOG =====
+    function loadBlog() {
+      const container = document.getElementById('previewBlog');
+      
+      const recentBlogs = blogsData.slice(0, 3);
+      
+      if (recentBlogs.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--noir-clair);">
+            <i class="fas fa-pen-fancy" style="font-size: 2rem; display: block; margin-bottom: 10px; color: var(--rouge);"></i>
+            <span data-key="no-blogs">Aucun article pour le moment. Revenez bientôt !</span>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = recentBlogs.map(b => {
+        const imagePath = b.image || 'assets/default-blog.jpg';
+        
+        return `
+          <div class="blog-card">
+            <img src="${imagePath}" alt="${b.title_fr}" class="blog-img" loading="lazy">
+            <div class="blog-body">
+              <h3>${b.title_fr}</h3>
+              <div class="blog-meta">
+                <span><i class="fas fa-calendar-alt"></i> ${new Date(b.date).toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'})}</span>
+                <span><i class="fas fa-user"></i> ${b.author}</span>
+              </div>
+              <p class="blog-excerpt">${b.excerpt_fr}</p>
+              <div class="blog-author">
+                <div class="avatar">${b.author.charAt(0).toUpperCase()}</div>
+                <div>
+                  <div class="author-name">${b.author}</div>
+                  <div class="author-role">${b.author_role}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ===== CHARGER TOUTES LES DONNÉES =====
+    function loadData() {
+      loadFormations();
+      loadBlog();
+    }
+
+    // ===== LANGUE =====
+    const translations = {
+      fr: {
+        'nav-home': 'Accueil', 'nav-about': 'À propos', 'nav-trainings': 'Formations',
+        'nav-blog': 'Blog', 'nav-contact': 'Contact',
+        'hero-badge': 'Centre de Formation Professionnelle',
+        'hero-title': 'Formez-vous aux <span>technologies</span> de demain',
+        'hero-desc': 'HECEFOP vous accompagne dans votre développement professionnel avec des formations de qualité en informatique, développement personnel et technologies émergentes.',
+        'hero-btn': 'Voir nos formations', 'hero-btn2': 'Nous contacter',
+        'formations-title': '📅 Nos <span>formations</span> à venir',
+        'formations-sub': 'Découvrez nos prochaines formations et inscrivez-vous dès maintenant.',
+        'formations-btn': 'Voir toutes les formations',
+        'blog-title': '📝 Derniers <span>articles</span>',
+        'blog-sub': 'Retrouvez nos conseils, astuces et actualités du monde de la technologie.',
+        'blog-btn': 'Voir tous les articles',
+        'newsletter-title': '📬 <span style="color: var(--jaune);">Newsletter</span>',
+        'newsletter-sub': 'Abonnez-vous pour recevoir les prochaines formations et les actualités de HECEFOP.',
+        'newsletter-btn': "S'abonner",
+        'footer-text': '© 2026 HECEFOP - Centre de Formation Professionnelle',
+        'footer-rights': 'Tous droits réservés',
+        'no-formations': 'Aucune formation à venir pour le moment. Revenez bientôt !',
+        'no-blogs': 'Aucun article pour le moment. Revenez bientôt !',
+        'view-training': 'Voir la formation →', 'read-article': 'Lire l\'article →'
+      },
+      en: {
+        'nav-home': 'Home', 'nav-about': 'About', 'nav-trainings': 'Trainings',
+        'nav-blog': 'Blog', 'nav-contact': 'Contact',
+        'hero-badge': 'Professional Training Center',
+        'hero-title': 'Train for <span>tomorrow\'s</span> technologies',
+        'hero-desc': 'HECEFOP supports your professional development with quality training in IT, personal development and emerging technologies.',
+        'hero-btn': 'View our trainings', 'hero-btn2': 'Contact us',
+        'formations-title': '📅 Upcoming <span>Trainings</span>',
+        'formations-sub': 'Discover our upcoming trainings and register now.',
+        'formations-btn': 'View all trainings',
+        'blog-title': '📝 Latest <span>Articles</span>',
+        'blog-sub': 'Find our tips, tricks and technology news.',
+        'blog-btn': 'View all articles',
+        'newsletter-title': '📬 <span style="color: var(--jaune);">Newsletter</span>',
+        'newsletter-sub': 'Subscribe to receive upcoming trainings and HECEFOP news.',
+        'newsletter-btn': 'Subscribe',
+        'footer-text': '© 2026 HECEFOP - Professional Training Center',
+        'footer-rights': 'All rights reserved',
+        'no-formations': 'No upcoming trainings at the moment. Come back soon!',
+        'no-blogs': 'No articles at the moment. Come back soon!',
+        'view-training': 'View training →', 'read-article': 'Read article →'
+      }
+    };
+
+    let currentLang = 'fr';
+
+    function switchLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('.lang-toggle button, .mobile-lang button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.dataset.key;
+        if (translations[lang][key]) {
+          if (key === 'hero-title') {
+            el.innerHTML = translations[lang][key];
+          } else {
+            el.textContent = translations[lang][key];
+          }
+        }
+      });
+      const newsletterInput = document.querySelector('.newsletter-form input');
+      if (newsletterInput) {
+        newsletterInput.placeholder = lang === 'fr' ? 'Votre adresse email' : 'Your email address';
+      }
+      document.querySelectorAll('.mobile-links a').forEach(link => {
+        const key = link.dataset.key;
+        if (key && translations[lang][key]) {
+          const icon = link.querySelector('i');
+          if (icon) {
+            link.innerHTML = '';
+            link.appendChild(icon);
+            link.appendChild(document.createTextNode(' ' + translations[lang][key]));
+          } else {
+            link.textContent = translations[lang][key];
+          }
+        }
+      });
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', function() {
+      loadData();
+      switchLang('fr');
+    });
+  </script>
+
+</body>
+</html>

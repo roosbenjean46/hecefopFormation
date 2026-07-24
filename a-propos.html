@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À propos - HECEFOP</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== COULEURS ===== */
+    :root {
+      --rouge: #c0392b;
+      --rouge-fon: #922b21;
+      --jaune: #f1c40f;
+      --or: #d4a017;
+      --noir: #1a1a2e;
+      --noir-clair: #2d2d44;
+      --krem: #fdf5e6;
+      --blanc: #ffffff;
+      --shadow: 0 20px 60px rgba(192, 57, 43, 0.15);
+      --radius: 20px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--krem);
+      color: var(--noir);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+
+    /* ===== TOP SOCIAL BAR ===== */
+    .top-bar {
+      background: var(--noir);
+      color: white;
+      padding: 8px 0;
+      font-size: 0.85rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
+      border-bottom: 2px solid var(--jaune);
+    }
+    .top-bar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .top-bar .social-icons {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+    .top-bar .social-icons a {
+      color: #94a3b8;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .top-bar .social-icons a:hover {
+      color: var(--jaune);
+      transform: translateY(-2px);
+    }
+    .top-bar .contact-info {
+      display: flex;
+      gap: 20px;
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+    .top-bar .contact-info a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .top-bar .contact-info a:hover { color: var(--jaune); }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      top: 42px;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 10px 0;
+      border-bottom: 2px solid var(--jaune);
+    }
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--noir);
+      text-decoration: none;
+    }
+    .logo img { height: 40px; width: auto; }
+    .logo span { color: var(--rouge); }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--noir);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--rouge); }
+    .nav-links a.active { color: var(--rouge); border-bottom: 2px solid var(--jaune); }
+    .nav-links .lang-toggle {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      background: var(--krem);
+      padding: 4px 8px;
+      border-radius: 30px;
+    }
+    .nav-links .lang-toggle button {
+      background: none;
+      border: none;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: 0.3s;
+      color: var(--noir-clair);
+    }
+    .nav-links .lang-toggle button.active {
+      background: var(--rouge);
+      color: white;
+    }
+    .nav-links .lang-toggle button:hover:not(.active) { background: #e2e8f0; }
+    .hamburger {
+      display: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: var(--noir);
+      background: none;
+      border: none;
+      padding: 5px;
+    }
+
+    /* ===== MENU MOBILE (slide from left) ===== */
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-overlay.active { display: block; opacity: 1; }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--noir);
+      z-index: 1002;
+      padding: 30px 25px;
+      transition: left 0.3s ease;
+      box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+      overflow-y: auto;
+    }
+    .mobile-menu.open { left: 0; }
+    .mobile-menu .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+      float: right;
+      transition: transform 0.3s;
+    }
+    .mobile-menu .close-btn:hover { transform: rotate(90deg); }
+    .mobile-menu .mobile-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin: 10px 0 30px 0;
+      text-decoration: none;
+    }
+    .mobile-menu .mobile-logo img { height: 35px; width: auto; }
+    .mobile-menu .mobile-logo span { color: var(--jaune); }
+    .mobile-menu .mobile-links {
+      list-style: none;
+      padding: 0;
+    }
+    .mobile-menu .mobile-links li { margin-bottom: 5px; }
+    .mobile-menu .mobile-links a {
+      display: block;
+      padding: 12px 15px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+    .mobile-menu .mobile-links a:hover,
+    .mobile-menu .mobile-links a.active {
+      background: rgba(241, 196, 15, 0.1);
+      color: var(--jaune);
+    }
+    .mobile-menu .mobile-links a i { width: 25px; color: var(--jaune); }
+    .mobile-menu .mobile-lang {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .mobile-menu .mobile-lang button {
+      padding: 8px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.3s;
+      flex: 1;
+    }
+    .mobile-menu .mobile-lang button.active {
+      background: var(--jaune);
+      color: var(--noir);
+      border-color: var(--jaune);
+    }
+    .mobile-menu .mobile-lang button:hover:not(.active) {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ===== PAGE HEADER - SANTRE BYEN ===== */
+    .page-header {
+      background: var(--noir);
+      color: white;
+      text-align: center;
+      border-bottom: 3px solid var(--jaune);
+      position: relative;
+      overflow: hidden;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 0 60px;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&h=500&fit=crop') center/cover no-repeat;
+      opacity: 0.25;
+      z-index: 0;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(192, 57, 43, 0.5) 100%);
+      z-index: 0;
+    }
+    .page-header .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+    .page-header h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .page-header h1 span { color: var(--jaune); }
+    .page-header p {
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+    .page-header .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: white;
+      text-decoration: none;
+      background: rgba(241, 196, 15, 0.2);
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      transition: 0.3s;
+      border: 1px solid rgba(241, 196, 15, 0.2);
+    }
+    .page-header .back-link:hover { background: rgba(241, 196, 15, 0.4); }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 70px 0; }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--noir);
+      text-align: center;
+    }
+    .section-title span { color: var(--rouge); }
+    .section-sub {
+      color: var(--noir-clair);
+      margin-bottom: 40px;
+      font-size: 1.05rem;
+      text-align: center;
+    }
+
+    /* ===== HISTOIRE ===== */
+    .histoire-grid {
+      display: flex;
+      gap: 50px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .histoire-text {
+      flex: 1.5;
+      min-width: 280px;
+    }
+    .histoire-text p {
+      margin-bottom: 15px;
+      font-size: 1.05rem;
+    }
+    .histoire-text .highlight {
+      color: var(--rouge);
+      font-weight: 700;
+    }
+    .histoire-image {
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
+    }
+    .histoire-image img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 3px solid var(--jaune);
+    }
+
+    /* ===== FONDATEUR AVEC PHOTO ===== */
+    .fondateur-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 40px;
+      border: 2px solid var(--krem);
+      transition: 0.3s;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .fondateur-card:hover {
+      border-color: var(--jaune);
+      box-shadow: var(--shadow);
+      transform: translateY(-5px);
+    }
+    .fondateur-card .fondateur-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 20px;
+      border: 4px solid var(--jaune);
+      display: block;
+      background: var(--krem);
+    }
+    .fondateur-card h3 {
+      font-size: 1.5rem;
+      color: var(--noir);
+      margin-bottom: 5px;
+    }
+    .fondateur-card .titre {
+      color: var(--rouge);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    .fondateur-card .date {
+      color: var(--noir-clair);
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+    .fondateur-card p {
+      color: var(--noir-clair);
+      font-size: 0.95rem;
+    }
+
+    /* ===== MISSION ===== */
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .mission-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 35px 30px;
+      text-align: center;
+      border: 2px solid var(--krem);
+      transition: 0.3s;
+    }
+    .mission-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--jaune);
+    }
+    .mission-card i {
+      font-size: 2.5rem;
+      color: var(--rouge);
+      margin-bottom: 15px;
+    }
+    .mission-card h3 {
+      color: var(--noir);
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+    .mission-card p {
+      color: var(--noir-clair);
+      font-size: 0.95rem;
+    }
+
+    /* ===== STATS ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+    .stat-card {
+      background: white;
+      padding: 30px 20px;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      border: 2px solid var(--jaune);
+      transition: 0.3s;
+    }
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+    .stat-card i {
+      font-size: 2.5rem;
+      color: var(--rouge);
+      margin-bottom: 10px;
+    }
+    .stat-card h3 {
+      font-size: 2.2rem;
+      color: var(--noir);
+    }
+    .stat-card p {
+      color: var(--noir-clair);
+      font-size: 0.9rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--noir);
+      color: #cbd5e1;
+      padding: 30px 0;
+      text-align: center;
+      border-top: 3px solid var(--jaune);
+    }
+    footer .socials {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 15px;
+    }
+    footer .socials a {
+      color: white;
+      font-size: 1.4rem;
+      transition: 0.3s;
+    }
+    footer .socials a:hover {
+      color: var(--jaune);
+      transform: translateY(-3px);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .top-bar .container { justify-content: center; }
+      .top-bar .contact-info { display: none; }
+      nav { top: 38px; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .mobile-overlay.active { display: block; }
+
+      .page-header {
+        min-height: 300px;
+        padding: 80px 0 40px;
+      }
+      .page-header h1 { font-size: 2rem; }
+
+      .histoire-grid {
+        flex-direction: column;
+      }
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .page-header h1 { font-size: 1.6rem; }
+      .page-header {
+        min-height: 250px;
+        padding: 70px 0 30px;
+      }
+      .mobile-menu { width: 260px; left: -260px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .fondateur-card { padding: 25px; }
+      .mission-grid { grid-template-columns: 1fr; }
+      .fondateur-card .fondateur-img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP SOCIAL BAR ===== -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="social-icons">
+        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="mailto:info@hecefop.com"><i class="fas fa-envelope"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="contact-info">
+        <span><i class="fas fa-phone"></i> (+509) 33 87 35 21</span>
+        <span><i class="fas fa-envelope"></i> info@hecefop.com</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <div class="container nav-content">
+      <a href="index.html" class="logo">
+        <img src="hecefop.png" alt="HECEFOP Logo">
+        <span>HECEFOP</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" data-key="nav-home">Accueil</a></li>
+        <li><a href="a-propos.html" class="active" data-key="nav-about">À propos</a></li>
+        <li><a href="formations.html" data-key="nav-trainings">Formations</a></li>
+        <li><a href="blog.html" data-key="nav-blog">Blog</a></li>
+        <li><a href="contact.html" data-key="nav-contact">Contact</a></li>
+        <li>
+          <div class="lang-toggle">
+            <button class="active" data-lang="fr" onclick="switchLang('fr')">FR</button>
+            <button data-lang="en" onclick="switchLang('en')">EN</button>
+          </div>
+        </li>
+      </ul>
+      <button class="hamburger" onclick="openMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY & MENU ===== -->
+  <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-btn" onclick="closeMobileMenu()">&times;</button>
+    <a href="index.html" class="mobile-logo">
+      <img src="hecefop.png" alt="HECEFOP Logo">
+      <span>HECEFOP</span>
+    </a>
+    <ul class="mobile-links">
+      <li><a href="index.html" data-key="nav-home"><i class="fas fa-home"></i> Accueil</a></li>
+      <li><a href="a-propos.html" class="active" data-key="nav-about"><i class="fas fa-info-circle"></i> À propos</a></li>
+      <li><a href="formations.html" data-key="nav-trainings"><i class="fas fa-calendar-alt"></i> Formations</a></li>
+      <li><a href="blog.html" data-key="nav-blog"><i class="fas fa-pen-fancy"></i> Blog</a></li>
+      <li><a href="contact.html" data-key="nav-contact"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    <div class="mobile-lang">
+      <button class="active" data-lang="fr" onclick="switchLang('fr')">FR</button>
+      <button data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <div class="page-header">
+    <div class="container">
+      <h1>À <span>propos</span> de nous</h1>
+      <p data-key="header-desc">Découvrez l'histoire, la mission et les valeurs de HECEFOP.</p>
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> <span data-key="back-home">Retour à l'accueil</span></a>
+    </div>
+  </div>
+
+  <!-- ===== HISTOIRE ===== -->
+  <section>
+    <div class="container">
+      <div class="histoire-grid">
+        <div class="histoire-text">
+          <h2 class="section-title" style="text-align: left;">Notre <span>histoire</span></h2>
+          <p>
+            <span class="highlight">HECEFOP</span> (Haïti Education et Formation Professionnelle) est un centre de formation 
+            dédié à l'excellence et à l'innovation. Fondé le <strong>20 septembre 2021</strong>, notre institution 
+            est née d'une vision claire : offrir une formation de qualité accessible à tous.
+          </p>
+          <p>
+            <span class="highlight">Notre fondateur, Roosben JEAN</span>, Ingénieur Informaticien de formation, 
+            a créé HECEFOP avec la conviction que la formation continue est la clé du développement 
+            personnel et professionnel. Fort de son expertise technique et de sa passion pour l'enseignement, 
+            il a bâti un centre où l'innovation et l'excellence sont au cœur de chaque formation.
+          </p>
+          <p>
+            Depuis notre création, nous avons formé des centaines de professionnels dans les domaines 
+            de l'informatique, du développement web, de la gestion de projet et du développement personnel. 
+            Nous croyons que chaque individu mérite d'avoir accès à une formation de qualité pour réaliser 
+            son plein potentiel.
+          </p>
+          <div style="margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+            <span style="background: var(--krem); padding: 6px 18px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; border: 1px solid var(--jaune);">
+              <i class="fas fa-calendar-check" style="color: var(--rouge);"></i> 2021 - Création
+            </span>
+            <span style="background: var(--krem); padding: 6px 18px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; border: 1px solid var(--jaune);">
+              <i class="fas fa-users" style="color: var(--rouge);"></i> 500+ Apprenants
+            </span>
+            <span style="background: var(--krem); padding: 6px 18px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; border: 1px solid var(--jaune);">
+              <i class="fas fa-star" style="color: var(--jaune);"></i> 4.8/5 Satisfaction
+            </span>
+          </div>
+        </div>
+        <div class="histoire-image">
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500&h=400&fit=crop" alt="HECEFOP Formation">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FONDATEUR AVEC PHOTO ===== -->
+  <section style="background: white;">
+    <div class="container">
+      <h2 class="section-title">Notre <span>fondateur</span></h2>
+      <p class="section-sub" data-key="founder-sub">L'homme derrière HECEFOP.</p>
+      <div class="fondateur-card">
+
+        <!-- ===== PHOTO FONDATEUR ===== -->
+        <img 
+          src="assets/Roos.png" 
+          alt="Roosben JEAN - Fondateur HECEFOP" 
+          class="fondateur-img"
+        >
+        <!-- 
+          Mete foto fondatè a nan dosye assets/ ak non "fondateur.jpg"
+          Si ou pa gen foto, imaj la ap montre yon espas vid 
+        -->
+
+        <h3>Roosben JEAN</h3>
+        <div class="titre">Ingénieur Informaticien</div>
+        <div class="date"><i class="fas fa-calendar-alt"></i> Fondé le 20 septembre 2021</div>
+        <p data-key="founder-desc">
+          Passionné par les technologies et l'éducation, Roosben JEAN a fondé HECEFOP avec 
+          une mission claire : former les jeunes aux métiers de demain et leur donner les 
+          outils pour réussir dans un monde numérique en constante évolution.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MISSION ===== -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Notre <span>mission</span></h2>
+      <p class="section-sub" data-key="mission-sub">Ce qui nous guide au quotidien.</p>
+      <div class="mission-grid">
+        <div class="mission-card">
+          <i class="fas fa-graduation-cap"></i>
+          <h3 data-key="mission-1-title">Former pour l'avenir</h3>
+          <p data-key="mission-1-desc">Offrir des formations de qualité qui préparent les apprenants aux défis du marché du travail.</p>
+        </div>
+        <div class="mission-card">
+          <i class="fas fa-users"></i>
+          <h3 data-key="mission-2-title">Accessibilité</h3>
+          <p data-key="mission-2-desc">Rendre la formation accessible à tous, sans distinction de niveau ou de moyens.</p>
+        </div>
+        <div class="mission-card">
+          <i class="fas fa-lightbulb"></i>
+          <h3 data-key="mission-3-title">Innovation</h3>
+          <p data-key="mission-3-desc">Rester à la pointe des technologies et des méthodes pédagogiques pour offrir le meilleur.</p>
+        </div>
+        <div class="mission-card">
+          <i class="fas fa-handshake"></i>
+          <h3 data-key="mission-4-title">Intégrité</h3>
+          <p data-key="mission-4-desc">Construire des relations de confiance avec nos apprenants et nos partenaires.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS ===== -->
+  <section style="background: white;">
+    <div class="container">
+      <h2 class="section-title">HECEFOP en <span>chiffres</span></h2>
+      <p class="section-sub" data-key="stats-sub">Quelques chiffres qui parlent de nous.</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <i class="fas fa-calendar-alt"></i>
+          <h3>2021</h3>
+          <p data-key="stats-1">Année de création</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-users"></i>
+          <h3>500+</h3>
+          <p data-key="stats-2">Apprenants formés</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <h3>15+</h3>
+          <p data-key="stats-3">Formateurs experts</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-star" style="color: var(--jaune);"></i>
+          <h3>4.8</h3>
+          <p data-key="stats-4">Taux de satisfaction</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="socials">
+        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="mailto:info@hecefop.com"><i class="fas fa-envelope"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p style="margin-bottom: 5px;" data-key="footer-text">© 2026 HECEFOP - Centre de Formation Professionnelle</p>
+      <p style="font-size: 0.85rem; opacity: 0.7;" data-key="footer-rights">Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== MENU MOBILE =====
+    function openMobileMenu() {
+      document.getElementById('mobileMenu').classList.add('open');
+      document.getElementById('mobileOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.getElementById('mobileOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+
+    // ===== LANGUE =====
+    const translations = {
+      fr: {
+        'nav-home': 'Accueil',
+        'nav-about': 'À propos',
+        'nav-trainings': 'Formations',
+        'nav-blog': 'Blog',
+        'nav-contact': 'Contact',
+        'header-desc': 'Découvrez l\'histoire, la mission et les valeurs de HECEFOP.',
+        'back-home': 'Retour à l\'accueil',
+        'founder-sub': 'L\'homme derrière HECEFOP.',
+        'founder-desc': 'Passionné par les technologies et l\'éducation, Roosben JEAN a fondé HECEFOP avec une mission claire : former les jeunes aux métiers de demain et leur donner les outils pour réussir dans un monde numérique en constante évolution.',
+        'mission-sub': 'Ce qui nous guide au quotidien.',
+        'mission-1-title': 'Former pour l\'avenir',
+        'mission-1-desc': 'Offrir des formations de qualité qui préparent les apprenants aux défis du marché du travail.',
+        'mission-2-title': 'Accessibilité',
+        'mission-2-desc': 'Rendre la formation accessible à tous, sans distinction de niveau ou de moyens.',
+        'mission-3-title': 'Innovation',
+        'mission-3-desc': 'Rester à la pointe des technologies et des méthodes pédagogiques pour offrir le meilleur.',
+        'mission-4-title': 'Intégrité',
+        'mission-4-desc': 'Construire des relations de confiance avec nos apprenants et nos partenaires.',
+        'stats-sub': 'Quelques chiffres qui parlent de nous.',
+        'stats-1': 'Année de création',
+        'stats-2': 'Apprenants formés',
+        'stats-3': 'Formateurs experts',
+        'stats-4': 'Taux de satisfaction',
+        'footer-text': '© 2026 HECEFOP - Centre de Formation Professionnelle',
+        'footer-rights': 'Tous droits réservés'
+      },
+      en: {
+        'nav-home': 'Home',
+        'nav-about': 'About',
+        'nav-trainings': 'Trainings',
+        'nav-blog': 'Blog',
+        'nav-contact': 'Contact',
+        'header-desc': 'Discover the history, mission and values of HECEFOP.',
+        'back-home': 'Back to home',
+        'founder-sub': 'The man behind HECEFOP.',
+        'founder-desc': 'Passionate about technology and education, Roosben JEAN founded HECEFOP with a clear mission: to train young people for the jobs of tomorrow and give them the tools to succeed in a constantly evolving digital world.',
+        'mission-sub': 'What guides us every day.',
+        'mission-1-title': 'Train for the future',
+        'mission-1-desc': 'Offer quality training that prepares learners for the challenges of the job market.',
+        'mission-2-title': 'Accessibility',
+        'mission-2-desc': 'Make training accessible to all, regardless of level or means.',
+        'mission-3-title': 'Innovation',
+        'mission-3-desc': 'Stay at the forefront of technologies and teaching methods to offer the best.',
+        'mission-4-title': 'Integrity',
+        'mission-4-desc': 'Build trusting relationships with our learners and partners.',
+        'stats-sub': 'Some numbers that speak about us.',
+        'stats-1': 'Year of creation',
+        'stats-2': 'Learners trained',
+        'stats-3': 'Expert trainers',
+        'stats-4': 'Satisfaction rate',
+        'footer-text': '© 2026 HECEFOP - Professional Training Center',
+        'footer-rights': 'All rights reserved'
+      }
+    };
+
+    let currentLang = 'fr';
+
+    function switchLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('.lang-toggle button, .mobile-lang button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.dataset.key;
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', function() {
+      switchLang('fr');
+    });
+  </script>
+
+</body>
+</html>
