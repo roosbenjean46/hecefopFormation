@@ -358,6 +358,7 @@
       text-align: center;
     }
     .section-title span { color: var(--rouge); }
+    .section-title .accent { color: var(--jaune); }
     .section-sub {
       color: var(--noir-clair);
       margin-bottom: 40px;
@@ -720,10 +721,10 @@
     </div>
   </section>
 
-  <!-- ===== FORMATIONS (FOTO ANLÈ, DESKRIPSYON ANBA) ===== -->
+  <!-- ===== FORMATIONS ===== -->
   <section id="formations-preview" style="background: var(--krem);">
     <div class="container">
-      <h2 class="section-title" data-key="formations-title"> Nos formations à venir</h2>
+      <h2 class="section-title" data-key="formations-title"> Nos <span>formations</span> à venir</h2>
       <p class="section-sub" data-key="formations-sub">Découvrez nos prochaines formations et inscrivez-vous dès maintenant.</p>
       <div class="formations-preview" id="previewFormations"></div>
       <div style="text-align: center;">
@@ -788,7 +789,7 @@
       if (e.key === 'Escape') closeMobileMenu();
     });
 
-    // ===== DONNÉES FORMATIONS AVEC IMAGES DEPUIS ASSETS =====
+    // ===== DONNÉES FORMATIONS =====
     const formationsData = [
       {
         id: 1,
@@ -831,7 +832,7 @@
       }
     ];
 
-    // ===== DONNÉES BLOG AVEC IMAGES DEPUIS ASSETS =====
+    // ===== DONNÉES BLOG =====
     const blogsData = [
       {
         id: 1,
@@ -871,8 +872,6 @@
     // ===== CHARGER FORMATIONS =====
     function loadFormations() {
       const container = document.getElementById('previewFormations');
-      
-      // Filtrer les formations à venir (3 premiers)
       const upcoming = formationsData.filter(f => f.status === 'upcoming').slice(0, 3);
       
       if (upcoming.length === 0) {
@@ -886,9 +885,7 @@
       }
 
       container.innerHTML = upcoming.map(f => {
-        // Construction du chemin de l'image
         const imagePath = f.image || 'assets/default-formation.jpg';
-        
         return `
           <div class="formation-card">
             <img src="${imagePath}" alt="${f.title_fr}" class="card-img" loading="lazy">
@@ -910,7 +907,6 @@
     // ===== CHARGER BLOG =====
     function loadBlog() {
       const container = document.getElementById('previewBlog');
-      
       const recentBlogs = blogsData.slice(0, 3);
       
       if (recentBlogs.length === 0) {
@@ -925,7 +921,6 @@
 
       container.innerHTML = recentBlogs.map(b => {
         const imagePath = b.image || 'assets/default-blog.jpg';
-        
         return `
           <div class="blog-card">
             <img src="${imagePath}" alt="${b.title_fr}" class="blog-img" loading="lazy">
@@ -964,13 +959,13 @@
         'hero-title': 'Formez-vous aux <span>technologies</span> de demain',
         'hero-desc': 'HECEFOP vous accompagne dans votre développement professionnel avec des formations de qualité en informatique, développement personnel et technologies émergentes.',
         'hero-btn': 'Voir nos formations', 'hero-btn2': 'Nous contacter',
-        'formations-title': '📅 Nos <span>formations</span> à venir',
+        'formations-title': ' Nos <span>formations</span> à venir',
         'formations-sub': 'Découvrez nos prochaines formations et inscrivez-vous dès maintenant.',
         'formations-btn': 'Voir toutes les formations',
-        'blog-title': '📝 Derniers <span>articles</span>',
+        'blog-title': ' Derniers <span>articles</span>',
         'blog-sub': 'Retrouvez nos conseils, astuces et actualités du monde de la technologie.',
         'blog-btn': 'Voir tous les articles',
-        'newsletter-title': '📬 <span style="color: var(--jaune);">Newsletter</span>',
+        'newsletter-title': ' <span style="color: var(--jaune);">Newsletter</span>',
         'newsletter-sub': 'Abonnez-vous pour recevoir les prochaines formations et les actualités de HECEFOP.',
         'newsletter-btn': "S'abonner",
         'footer-text': '© 2026 HECEFOP - Centre de Formation Professionnelle',
@@ -986,13 +981,13 @@
         'hero-title': 'Train for <span>tomorrow\'s</span> technologies',
         'hero-desc': 'HECEFOP supports your professional development with quality training in IT, personal development and emerging technologies.',
         'hero-btn': 'View our trainings', 'hero-btn2': 'Contact us',
-        'formations-title': '📅 Upcoming <span>Trainings</span>',
+        'formations-title': ' Upcoming <span>Trainings</span>',
         'formations-sub': 'Discover our upcoming trainings and register now.',
         'formations-btn': 'View all trainings',
-        'blog-title': '📝 Latest <span>Articles</span>',
+        'blog-title': ' Latest <span>Articles</span>',
         'blog-sub': 'Find our tips, tricks and technology news.',
         'blog-btn': 'View all articles',
-        'newsletter-title': '📬 <span style="color: var(--jaune);">Newsletter</span>',
+        'newsletter-title': ' <span style="color: var(--jaune);">Newsletter</span>',
         'newsletter-sub': 'Subscribe to receive upcoming trainings and HECEFOP news.',
         'newsletter-btn': 'Subscribe',
         'footer-text': '© 2026 HECEFOP - Professional Training Center',
@@ -1013,7 +1008,7 @@
       document.querySelectorAll('[data-key]').forEach(el => {
         const key = el.dataset.key;
         if (translations[lang][key]) {
-          if (key === 'hero-title') {
+          if (key === 'hero-title' || key === 'formations-title' || key === 'blog-title' || key === 'newsletter-title') {
             el.innerHTML = translations[lang][key];
           } else {
             el.textContent = translations[lang][key];
