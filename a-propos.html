@@ -256,19 +256,19 @@
       background: rgba(255,255,255,0.1);
     }
 
-    /* ===== PAGE HEADER - SANTRE BYEN ===== */
+    /* ===== PAGE HEADER - BYEN SANTRE ===== */
     .page-header {
-      background: var(--noir);
-      color: white;
-      text-align: center;
-      border-bottom: 3px solid var(--jaune);
-      position: relative;
-      overflow: hidden;
-      min-height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 100px 0 60px;
+    background: var(--noir);
+    color: white;
+    text-align: center;
+    border-bottom: 3px solid var(--jaune);
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0;
     }
     .page-header::before {
       content: '';
@@ -295,28 +295,31 @@
       position: relative;
       z-index: 1;
       width: 100%;
+      margin-top: 100px;
     }
     .page-header h1 {
-      font-size: 2.8rem;
+      font-size: 3.2rem;
       font-weight: 800;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      line-height: 1.2;
     }
     .page-header h1 span { color: var(--jaune); }
     .page-header p {
       max-width: 600px;
       margin: 0 auto;
       opacity: 0.9;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      line-height: 1.6;
     }
     .page-header .back-link {
       display: inline-block;
-      margin-top: 20px;
+      margin-top: 22px;
       color: white;
       text-decoration: none;
       background: rgba(241, 196, 15, 0.2);
-      padding: 8px 24px;
+      padding: 10px 30px;
       border-radius: 30px;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       transition: 0.3s;
       border: 1px solid rgba(241, 196, 15, 0.2);
     }
@@ -389,11 +392,12 @@
     }
     .fondateur-card .fondateur-img {
       width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
+      height: 170px;
+      border-radius: 20%;
+      object-fit: cover; 
+      object-position: center;
       margin: 0 auto 20px;
-      border: 4px solid var(--jaune);
+      border: 1px solid var(--blanc);
       display: block;
       background: var(--krem);
     }
@@ -512,6 +516,21 @@
     }
 
     /* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .page-header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+  }
+  .page-header p {
+    font-size: 1.1rem;
+  }
+  .page-header .back-link {
+    margin-top: 18px;
+    padding: 8px 24px;
+    font-size: 0.9rem;
+  }
+}
+
     @media (max-width: 768px) {
       .top-bar .container { justify-content: center; }
       .top-bar .contact-info { display: none; }
@@ -521,10 +540,21 @@
       .mobile-overlay.active { display: block; }
 
       .page-header {
-        min-height: 300px;
-        padding: 80px 0 40px;
+        min-height: 380px;
+        padding: 70px 20px;
       }
-      .page-header h1 { font-size: 2rem; }
+      .page-header h1 {
+        font-size: 2.2rem;
+      }
+      .page-header p {
+        font-size: 1rem;
+        padding: 0 10px;
+      }
+      .page-header .back-link {
+        font-size: 0.85rem;
+        padding: 8px 22px;
+        margin-top: 18px;
+      }
 
       .histoire-grid {
         flex-direction: column;
@@ -533,12 +563,25 @@
         grid-template-columns: 1fr 1fr;
       }
     }
+
     @media (max-width: 480px) {
-      .page-header h1 { font-size: 1.6rem; }
       .page-header {
-        min-height: 250px;
-        padding: 70px 0 30px;
+        min-height: 320px;
+        padding: 60px 15px;
       }
+      .page-header h1 {
+        font-size: 1.8rem;
+      }
+      .page-header p {
+        font-size: 0.9rem;
+        padding: 0 5px;
+      }
+      .page-header .back-link {
+        font-size: 0.8rem;
+        padding: 6px 18px;
+        margin-top: 15px;
+      }
+
       .mobile-menu { width: 260px; left: -260px; }
       .stats-grid { grid-template-columns: 1fr; }
       .fondateur-card { padding: 25px; }
@@ -546,6 +589,24 @@
       .fondateur-card .fondateur-img {
         width: 120px;
         height: 120px;
+      }
+    }
+
+    /* Pour très petits écrans (≤ 360px) */
+    @media (max-width: 360px) {
+      .page-header {
+        min-height: 280px;
+        padding: 50px 10px;
+      }
+      .page-header h1 {
+        font-size: 1.5rem;
+      }
+      .page-header p {
+        font-size: 0.8rem;
+      }
+      .page-header .back-link {
+        font-size: 0.75rem;
+        padding: 5px 14px;
       }
     }
   </style>
@@ -681,10 +742,6 @@
           alt="Roosben JEAN - Fondateur HECEFOP" 
           class="fondateur-img"
         >
-        <!-- 
-          Mete foto fondatè a nan dosye assets/ ak non "fondateur.jpg"
-          Si ou pa gen foto, imaj la ap montre yon espas vid 
-        -->
 
         <h3>Roosben JEAN</h3>
         <div class="titre">Ingénieur Informaticien</div>
