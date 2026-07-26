@@ -256,7 +256,7 @@
       background: rgba(255,255,255,0.1);
     }
 
-    /* ===== PAGE HEADER - KORIJE POU SANTRE BYEN ===== */
+    /* ===== PAGE HEADER ===== */
     .page-header {
       background: var(--noir);
       color: white;
@@ -295,7 +295,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      margin-top: 100px;
+      margin-top: 80px;
     }
     .page-header h1 {
       font-size: 2.8rem;
@@ -376,7 +376,6 @@
       border-color: var(--jaune);
     }
 
-    /* ===== IMAGE ===== */
     .card .card-img {
       width: 100%;
       height: 200px;
@@ -406,7 +405,6 @@
       color: var(--jaune);
     }
 
-    /* ===== CORPS DE LA CARTE ===== */
     .card .card-body {
       padding: 20px 25px 25px;
       flex: 1;
@@ -505,6 +503,136 @@
       background: var(--or);
     }
 
+    /* ===== MODAL INSCRIPTION ===== */
+    #inscriptionModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    #inscriptionModal.active {
+      display: flex;
+    }
+    .modal-box {
+      background: white;
+      border-radius: var(--radius);
+      max-width: 500px;
+      width: 100%;
+      padding: 35px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-top: 4px solid var(--jaune);
+      animation: modalIn 0.4s ease;
+    }
+    @keyframes modalIn {
+      from { transform: scale(0.9) translateY(30px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .modal-box .close-modal {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--noir-clair);
+      transition: 0.3s;
+    }
+    .modal-box .close-modal:hover { color: var(--noir); transform: rotate(90deg); }
+    .modal-box h2 { color: var(--noir); margin-bottom: 5px; font-size: 1.5rem; }
+    .modal-box .sub { color: var(--noir-clair); margin-bottom: 20px; font-size: 0.9rem; }
+    .modal-box .form-group { margin-bottom: 15px; }
+    .modal-box .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+      color: var(--noir);
+    }
+    .modal-box .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--krem);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: 0.3s;
+    }
+    .modal-box .form-group input:focus {
+      outline: none;
+      border-color: var(--rouge);
+      box-shadow: 0 0 0 4px rgba(192, 57, 43, 0.1);
+    }
+    .modal-box .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--rouge);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .modal-box .btn-submit:hover { background: var(--rouge-fon); transform: translateY(-2px); }
+
+    /* ===== MODAL CONFIRMATION ===== */
+    #confirmModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 2001;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    #confirmModal.active {
+      display: flex;
+    }
+    .confirm-box {
+      background: white;
+      border-radius: var(--radius);
+      max-width: 450px;
+      width: 100%;
+      padding: 40px 35px;
+      text-align: center;
+      border-top: 4px solid var(--jaune);
+      animation: modalIn 0.4s ease;
+    }
+    .confirm-box .icon-success {
+      font-size: 4rem;
+      color: #27ae60;
+      margin-bottom: 15px;
+    }
+    .confirm-box h2 {
+      color: var(--noir);
+      margin-bottom: 8px;
+    }
+    .confirm-box p {
+      color: var(--noir-clair);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+    .confirm-box .btn-ok {
+      padding: 12px 40px;
+      background: var(--rouge);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .confirm-box .btn-ok:hover { background: var(--rouge-fon); transform: scale(1.04); }
+
     /* ===== FOOTER ===== */
     footer {
       background: var(--noir);
@@ -537,29 +665,19 @@
       .nav-links { display: none; }
       .hamburger { display: block; }
       .mobile-overlay.active { display: block; }
-      .page-header {
-        min-height: 300px;
-        padding: 80px 0 40px;
-      }
+      .page-header { min-height: 300px; padding: 80px 0 40px; }
       .page-header h1 { font-size: 2rem; }
-      .grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-      }
+      .grid { grid-template-columns: 1fr 1fr; gap: 20px; }
     }
     @media (max-width: 480px) {
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-      }
+      .grid { grid-template-columns: 1fr; gap: 25px; }
       .page-header h1 { font-size: 1.6rem; }
-      .page-header {
-        min-height: 250px;
-        padding: 70px 0 30px;
-      }
+      .page-header { min-height: 250px; padding: 70px 0 30px; }
       .filters button { padding: 8px 18px; font-size: 0.8rem; }
       .card .card-img { height: 160px; }
       .mobile-menu { width: 260px; left: -260px; }
+      .modal-box { padding: 25px; }
+      .confirm-box { padding: 30px 20px; }
     }
   </style>
 </head>
@@ -573,12 +691,12 @@
         <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
         <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="mailto:info@hecefop.com"><i class="fas fa-envelope"></i></a>
-        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="mailto:contact01hecefop@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://wa.me/50944725964" target="_blank"><i class="fab fa-whatsapp"></i></a>
       </div>
       <div class="contact-info">
         <span><i class="fas fa-phone"></i> (+509) 33 87 35 21</span>
-        <span><i class="fas fa-envelope"></i> info@hecefop.com</span>
+        <span><i class="fas fa-envelope"></i> contact01hecefop@gmail.com</span>
       </div>
     </div>
   </div>
@@ -621,7 +739,7 @@
       <li><a href="index.html" data-key="nav-home"><i class="fas fa-home"></i> Accueil</a></li>
       <li><a href="a-propos.html" data-key="nav-about"><i class="fas fa-info-circle"></i> À propos</a></li>
       <li><a href="formations.html" class="active" data-key="nav-trainings"><i class="fas fa-calendar-alt"></i> Formations</a></li>
-      <li><a href="blog.html" data-key="nav-blog"><i class="fas fa-pen-fancy"></i> Blog</a></li>
+      <li><a href="#" data-key="nav-blog"><i class="fas fa-pen-fancy"></i> Blog</a></li>
       <li><a href="contact.html" data-key="nav-contact"><i class="fas fa-envelope"></i> Contact</a></li>
     </ul>
     <div class="mobile-lang">
@@ -630,7 +748,7 @@
     </div>
   </div>
 
-  <!-- ===== HEADER - KORIJE ===== -->
+  <!-- ===== HEADER ===== -->
   <div class="page-header">
     <div class="container">
       <h1> Nos <span>Formations</span></h1>
@@ -655,29 +773,41 @@
   </div>
 
   <!-- ===== MODAL INSCRIPTION ===== -->
-  <div id="modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); z-index:2000; justify-content:center; align-items:center; padding:20px;">
-    <div style="background:white; border-radius:20px; max-width:500px; width:100%; padding:35px; max-height:90vh; overflow-y:auto; border-top: 4px solid var(--jaune);">
-      <button onclick="closeModal()" style="float:right; background:none; border:none; font-size:1.8rem; cursor:pointer; color:var(--noir-clair);">&times;</button>
-      <h2 style="color:var(--noir); margin-bottom:10px;"><span data-key="modal-title">📝 Inscription</span></h2>
-      <div id="modalInfo" style="background:var(--krem); padding:12px 18px; border-radius:12px; margin-bottom:20px; font-size:0.9rem; color:var(--noir-clair); border-left: 3px solid var(--rouge);"></div>
+  <div id="inscriptionModal">
+    <div class="modal-box">
+      <button class="close-modal" onclick="closeInscriptionModal()">&times;</button>
+      <h2> Inscription à la formation</h2>
+      <p class="sub" id="modalFormationInfo">Chargement...</p>
       <form id="inscriptionForm" onsubmit="submitInscription(event)">
         <input type="hidden" id="modalFormationId">
-        <div style="margin-bottom:15px;">
-          <label style="display:block; font-weight:600; font-size:0.85rem; margin-bottom:5px;"><span data-key="form-name">Nom complet</span> *</label>
-          <input type="text" id="inscriptName" placeholder="Votre nom" required style="width:100%; padding:12px 16px; border:2px solid var(--krem); border-radius:12px; font-size:0.95rem; font-family:inherit;">
+        <div class="form-group">
+          <label for="nom">Nom <span style="color:var(--rouge);">*</span></label>
+          <input type="text" id="nom" placeholder="Votre nom" required>
         </div>
-        <div style="margin-bottom:15px;">
-          <label style="display:block; font-weight:600; font-size:0.85rem; margin-bottom:5px;"><span data-key="form-email">Email</span> *</label>
-          <input type="email" id="inscriptEmail" placeholder="votre@email.com" required style="width:100%; padding:12px 16px; border:2px solid var(--krem); border-radius:12px; font-size:0.95rem; font-family:inherit;">
+        <div class="form-group">
+          <label for="prenom">Prénom <span style="color:var(--rouge);">*</span></label>
+          <input type="text" id="prenom" placeholder="Votre prénom" required>
         </div>
-        <div style="margin-bottom:15px;">
-          <label style="display:block; font-weight:600; font-size:0.85rem; margin-bottom:5px;"><span data-key="form-phone">Téléphone</span></label>
-          <input type="text" id="inscriptPhone" placeholder="(+509) 33 87 35 21" style="width:100%; padding:12px 16px; border:2px solid var(--krem); border-radius:12px; font-size:0.95rem; font-family:inherit;">
+        <div class="form-group">
+          <label for="email">Email <span style="color:var(--rouge);">*</span></label>
+          <input type="email" id="email" placeholder="votre@email.com" required>
         </div>
-        <button type="submit" style="width:100%; padding:14px; background:var(--rouge); color:white; border:none; border-radius:50px; font-weight:700; font-size:1rem; cursor:pointer; transition:0.3s;">
-          <span data-key="confirm-btn">Confirmer l'inscription</span>
-        </button>
+        <div class="form-group">
+          <label for="telephone">Téléphone</label>
+          <input type="tel" id="telephone" placeholder="(+509) 33 87 35 21">
+        </div>
+        <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Confirmer l'inscription</button>
       </form>
+    </div>
+  </div>
+
+  <!-- ===== MODAL CONFIRMATION ===== -->
+  <div id="confirmModal">
+    <div class="confirm-box">
+      <div class="icon-success"><i class="fas fa-check-circle"></i></div>
+      <h2>✅ Inscription confirmée !</h2>
+      <p>Votre inscription a été enregistrée avec succès. Vous recevrez un email de confirmation avec tous les détails.</p>
+      <button class="btn-ok" onclick="closeConfirmModal()">OK</button>
     </div>
   </div>
 
@@ -689,8 +819,8 @@
         <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
         <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="mailto:info@hecefop.com"><i class="fas fa-envelope"></i></a>
-        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="mailto:contact01hecefop@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://wa.me/50944725964" target="_blank"><i class="fab fa-whatsapp"></i></a>
       </div>
       <p style="margin-bottom: 5px;" data-key="footer-text">© 2026 HECEFOP - Centre de Formation Professionnelle</p>
       <p style="font-size: 0.85rem; opacity: 0.7;" data-key="footer-rights">Tous droits réservés</p>
@@ -698,109 +828,85 @@
   </footer>
 
   <script>
-    // ===== DONNÉES FORMATIONS =====
+    // ===== DONNÉES FORMATIONS (TOUT FÒMASYON YO) =====
     const formationsData = [
+      // ===== FORMATIONS À VENIR (5) =====
       {
         id: 1,
-        title_fr: "Introduction à l'Intelligence Artificielle",
-        title_en: "Introduction to Artificial Intelligence",
+        title_fr: "L'Évolution de l'IA et son Impact sur les Humains",
+        title_en: "The Evolution of AI and its Impact on Humans",
         date: "2026-07-28",
-        description_fr: "Découvrez les bases de l'IA, les modèles de langage et comment les utiliser dans votre quotidien professionnel.",
-        description_en: "Discover the basics of AI, language models and how to use them in your daily professional life.",
-        image: "assets/formation-ia.jpg",
-        tags_fr: ["IA", "ChatGPT", "Automatisation"],
-        tags_en: ["AI", "ChatGPT", "Automation"],
+        description_fr: "FORMATION GRATUITE - Découvrez ce qui va arriver dans les jours qui viennent avec l'évolution de l'IA et l'impact de l'IA sur les humains. Apprenez comment utiliser l'IA dans votre apprentissage.",
+        description_en: "FREE TRAINING - Discover what's coming in the days ahead with the evolution of AI and its impact on humans. Learn how to use AI in your learning.",
+        image: "assets/ia2829.jpg",
+        tags_fr: ["IA", "Formation Gratuite", "Impact", "Évolution"],
+        tags_en: ["AI", "Free Training", "Impact", "Evolution"],
         status: "upcoming",
         link: "https://meet.google.com/abc-defg-hij"
       },
       {
         id: 2,
-        title_fr: "Développement Web Moderne",
-        title_en: "Modern Web Development",
-        date: "2026-08-04",
-        description_fr: "Maîtrisez les fondamentaux du développement web avec HTML, CSS, JavaScript et les frameworks modernes.",
-        description_en: "Master the fundamentals of web development with HTML, CSS, JavaScript and modern frameworks.",
-        image: "assets/formation-web.jpg",
-        tags_fr: ["HTML", "CSS", "JavaScript", "React"],
-        tags_en: ["HTML", "CSS", "JavaScript", "React"],
+        title_fr: "Protection et Sécurité de vos Données",
+        title_en: "Data Protection and Security",
+        date: "2026-07-30",
+        description_fr: "Apprenez à protéger vos données personnelles et professionnelles. Comprendre les menaces, les bonnes pratiques et les outils pour sécuriser vos informations en ligne.",
+        description_en: "Learn to protect your personal and professional data. Understand threats, best practices and tools to secure your online information.",
+        image: "securite.jpg",
+        tags_fr: ["Sécurité", "Protection", "Données", "Vie Privée"],
+        tags_en: ["Security", "Protection", "Data", "Privacy"],
         status: "upcoming",
         link: "https://meet.google.com/abc-defg-hij"
       },
       {
         id: 3,
-        title_fr: "Gestion de Projet Agile",
-        title_en: "Agile Project Management",
-        date: "2026-08-11",
-        description_fr: "Apprenez les méthodologies agiles (Scrum, Kanban) pour gérer vos projets efficacement en équipe.",
-        description_en: "Learn Agile methodologies (Scrum, Kanban) to manage your projects effectively as a team.",
-        image: "assets/formation-agile.jpg",
-        tags_fr: ["Agile", "Scrum", "Gestion"],
-        tags_en: ["Agile", "Scrum", "Management"],
+        title_fr: "Utilisation Efficace des Réseaux Sociaux",
+        title_en: "Effective Use of Social Networks",
+        date: "2026-08-02",
+        description_fr: "Apprenez à utiliser Facebook et TikTok pour vendre vos produits et services. Stratégies de marketing digital, création de contenu engageant et techniques de vente sur les réseaux sociaux.",
+        description_en: "Learn to use Facebook and TikTok to sell your products and services. Digital marketing strategies, engaging content creation and sales techniques on social networks.",
+        image: "network.jpg",
+        tags_fr: ["Facebook", "TikTok", "Marketing Digital", "Vente"],
+        tags_en: ["Facebook", "TikTok", "Digital Marketing", "Sales"],
         status: "upcoming",
         link: "https://meet.google.com/abc-defg-hij"
       },
-      {
-        id: 4,
-        title_fr: "Sécurité Informatique",
-        title_en: "IT Security",
-        date: "2026-08-18",
-        description_fr: "Comprendre les bases de la cybersécurité, la protection des données et les bonnes pratiques.",
-        description_en: "Understand the basics of cybersecurity, data protection and best practices.",
-        image: "assets/formation-securite.jpg",
-        tags_fr: ["Sécurité", "Cyber", "Protection"],
-        tags_en: ["Security", "Cyber", "Protection"],
-        status: "upcoming",
-        link: "https://meet.google.com/abc-defg-hij"
-      },
-      {
-        id: 5,
-        title_fr: "Marketing Digital et Réseaux Sociaux",
-        title_en: "Digital Marketing & Social Media",
-        date: "2026-08-25",
-        description_fr: "Stratégies de marketing digital, gestion des réseaux sociaux et création de contenu engageant.",
-        description_en: "Digital marketing strategies, social media management and engaging content creation.",
-        image: "assets/formation-marketing.jpg",
-        tags_fr: ["Marketing", "Social Media", "Contenu"],
-        tags_en: ["Marketing", "Social Media", "Content"],
-        status: "upcoming",
-        link: "https://meet.google.com/abc-defg-hij"
-      },
+      // ===== FORMATIONS PASSÉES (3) =====
       {
         id: 6,
-        title_fr: "Bases de Données",
-        title_en: "Databases",
-        date: "2026-06-18",
-        description_fr: "Introduction aux bases de données relationnelles avec MySQL et SQL.",
-        description_en: "Introduction to relational databases with MySQL and SQL.",
-        image: "assets/formation-bd.jpg",
-        tags_fr: ["MySQL", "SQL", "Base de données"],
-        tags_en: ["MySQL", "SQL", "Database"],
+        title_fr: "Comment se démarquer de la masse ?",
+        title_en: "How to stand out from the crowd?",
+        date: "2026-06-20",
+        description_fr: "Développement personnel - Apprenez à vous distinguer dans un monde compétitif en développant votre marque personnelle et vos compétences uniques.",
+        description_en: "Personal development - Learn to stand out in a competitive world by developing your personal brand and unique skills.",
+        image: "decision.png",
+        tags_fr: ["Développement Personnel", "Marque Personnelle"],
+        tags_en: ["Personal Development", "Personal Brand"],
         status: "past",
         link: ""
       },
       {
         id: 7,
-        title_fr: "Programmation Orientée Objet",
-        title_en: "Object-Oriented Programming",
-        date: "2026-06-11",
-        description_fr: "Les concepts fondamentaux de la POO avec Java et C#.",
-        description_en: "Fundamental concepts of OOP with Java and C#.",
-        image: "assets/formation-poo.jpg",
-        tags_fr: ["Java", "C#", "POO"],
-        tags_en: ["Java", "C#", "OOP"],
+        title_fr: "Kijan w itilize rezo sosyo yo ?",
+        title_en: "How to use social networks?",
+        date: "2026-07-14",
+        description_fr: "Apprenez à utiliser les réseaux sociaux de manière stratégique pour développer votre présence en ligne et votre réseau professionnel.",
+        description_en: "Learn to use social networks strategically to develop your online presence and professional network.",
+        image: "assets/rezososyo.jpg",
+        tags_fr: ["Rezo Sosyal", "Réseaux Sociaux", "Communication"],
+        tags_en: ["Social Networks", "Communication"],
         status: "past",
         link: ""
       },
       {
         id: 8,
-        title_fr: "WordPress pour débutants",
-        title_en: "WordPress for Beginners",
-        date: "2026-06-04",
-        description_fr: "Créez et gérez votre site web avec WordPress sans coder.",
-        description_en: "Create and manage your website with WordPress without coding.",
-        image: "assets/formation-wordpress.jpg",
-        tags_fr: ["WordPress", "CMS", "Web"],
-        tags_en: ["WordPress", "CMS", "Web"],
+        title_fr: "Dynamique Entrepreneuriale",
+        title_en: "Entrepreneurial Dynamics",
+        date: "2026-07-21",
+        description_fr: "Débloquez votre potentiel d'entrepreneur et bâtissez un avenir à la hauteur de vos ambitions ! Développez votre mindset d'entrepreneur, fixez des objectifs clairs et boostez votre confiance.",
+        description_en: "Unlock your entrepreneurial potential and build a future worthy of your ambitions! Develop your entrepreneurial mindset, set clear goals and boost your confidence.",
+        image: "assets/dynamique.jpg",
+        tags_fr: ["Entrepreneuriat", "Développement Personnel", "Mindset"],
+        tags_en: ["Entrepreneurship", "Personal Development", "Mindset"],
         status: "past",
         link: ""
       }
@@ -808,6 +914,7 @@
 
     let currentLang = 'fr';
     let currentFilter = 'all';
+    let currentFormationId = null;
 
     // ===== MENU MOBILE =====
     function openMobileMenu() {
@@ -821,7 +928,11 @@
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeMobileMenu();
+      if (e.key === 'Escape') {
+        closeMobileMenu();
+        closeInscriptionModal();
+        closeConfirmModal();
+      }
     });
 
     // ===== AFFICHER FORMATIONS =====
@@ -896,36 +1007,48 @@
       renderFormations(filter);
     }
 
-    // ===== MODAL =====
+    // ===== MODAL INSCRIPTION =====
     function openInscription(id) {
       const f = formationsData.find(item => item.id === id);
       if (!f) return;
+      currentFormationId = id;
       const isFr = currentLang === 'fr';
       document.getElementById('modalFormationId').value = id;
-      document.getElementById('modalInfo').innerHTML = `
-        <strong>${isFr ? f.title_fr : f.title_en}</strong><br>
-        <span>${isFr ? 'Date' : 'Date'} : ${new Date(f.date).toLocaleDateString(isFr ? 'fr-FR' : 'en-US', {day:'numeric', month:'long', year:'numeric'})}</span>
-      `;
-      document.getElementById('modal').style.display = 'flex';
+      document.getElementById('modalFormationInfo').textContent = `${isFr ? f.title_fr : f.title_en} - ${new Date(f.date).toLocaleDateString(isFr ? 'fr-FR' : 'en-US', {day:'numeric', month:'long', year:'numeric'})}`;
+      document.getElementById('inscriptionModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
-    function closeModal() {
-      document.getElementById('modal').style.display = 'none';
+    function closeInscriptionModal() {
+      document.getElementById('inscriptionModal').classList.remove('active');
       document.getElementById('inscriptionForm').reset();
+      document.body.style.overflow = '';
     }
 
+    // ===== SOUMETTRE INSCRIPTION =====
     function submitInscription(e) {
       e.preventDefault();
-      const id = parseInt(document.getElementById('modalFormationId').value);
-      const f = formationsData.find(item => item.id === id);
-      const name = document.getElementById('inscriptName').value;
-      const email = document.getElementById('inscriptEmail').value;
-      const phone = document.getElementById('inscriptPhone').value;
-      const isFr = currentLang === 'fr';
-      const title = isFr ? f.title_fr : f.title_en;
+      const nom = document.getElementById('nom').value.trim();
+      const prenom = document.getElementById('prenom').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const telephone = document.getElementById('telephone').value.trim();
 
-      alert(`${isFr ? '✅ Inscription confirmée pour' : '✅ Registration confirmed for'} "${title}" !\n\n${isFr ? 'Nom' : 'Name'} : ${name}\nEmail : ${email}\n${isFr ? 'Téléphone' : 'Phone'} : ${phone || (isFr ? 'Non fourni' : 'Not provided')}`);
-      closeModal();
+      if (!nom || !prenom || !email) {
+        alert('Veuillez remplir tous les champs obligatoires (*)');
+        return;
+      }
+
+      closeInscriptionModal();
+      document.getElementById('confirmModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      console.log('Inscription:', { nom, prenom, email, telephone, formationId: currentFormationId });
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirmModal').classList.remove('active');
+      document.body.style.overflow = '';
+      document.getElementById('inscriptionForm').reset();
     }
 
     // ===== LANGUE =====
@@ -939,11 +1062,6 @@
         'filter-upcoming': 'À venir',
         'filter-past': 'Passées',
         'no-trainings': 'Aucune formation trouvée.',
-        'modal-title': '📝 Inscription',
-        'form-name': 'Nom complet',
-        'form-email': 'Email',
-        'form-phone': 'Téléphone',
-        'confirm-btn': 'Confirmer l\'inscription',
         'footer-text': '© 2026 HECEFOP - Centre de Formation Professionnelle',
         'footer-rights': 'Tous droits réservés'
       },
@@ -956,11 +1074,6 @@
         'filter-upcoming': 'Upcoming',
         'filter-past': 'Past',
         'no-trainings': 'No trainings found.',
-        'modal-title': '📝 Registration',
-        'form-name': 'Full name',
-        'form-email': 'Email',
-        'form-phone': 'Phone',
-        'confirm-btn': 'Confirm registration',
         'footer-text': '© 2026 HECEFOP - Professional Training Center',
         'footer-rights': 'All rights reserved'
       }
@@ -986,12 +1099,12 @@
       switchLang('fr');
     });
 
-    // ===== FERMER MODAL =====
-    document.getElementById('modal').addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
+    // ===== FERMER MODALS EN CLIQUANT SUR OVERLAY =====
+    document.getElementById('inscriptionModal').addEventListener('click', function(e) {
+      if (e.target === this) closeInscriptionModal();
     });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeModal();
+    document.getElementById('confirmModal').addEventListener('click', function(e) {
+      if (e.target === this) closeConfirmModal();
     });
   </script>
 
