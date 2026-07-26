@@ -659,12 +659,12 @@
         <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
         <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="mailto:info@hecefop.com"><i class="fas fa-envelope"></i></a>
-        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="mailto:contact01hecefop@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://wa.me/50944725964" target="_blank"><i class="fab fa-whatsapp"></i></a>
       </div>
       <div class="contact-info">
         <span><i class="fas fa-phone"></i> (+509) 33 87 35 21</span>
-        <span><i class="fas fa-envelope"></i> info@hecefop.com</span>
+        <span><i class="fas fa-envelope"></i> contact01hecefop@gmail.com</span>
       </div>
     </div>
   </div>
@@ -680,7 +680,7 @@
         <li><a href="index.html" class="active" data-key="nav-home">Accueil</a></li>
         <li><a href="a-propos.html" data-key="nav-about">À propos</a></li>
         <li><a href="formations.html" data-key="nav-trainings">Formations</a></li>
-        <li><a href="blog.html" data-key="nav-blog">Blog</a></li>
+        <li><a href="#" data-key="nav-blog">Blog</a></li>
         <li><a href="contact.html" data-key="nav-contact">Contact</a></li>
         <li>
           <div class="lang-toggle">
@@ -735,7 +735,7 @@
   <!-- ===== FORMATIONS À VENIR ===== -->
   <section id="formations-upcoming" style="background: var(--krem);">
     <div class="container">
-      <h2 class="section-title" data-key="upcoming-title">📅 Nos <span>formations</span> à venir</h2>
+      <h2 class="section-title" data-key="upcoming-title"> Nos <span>formations</span> à venir</h2>
       <p class="section-sub" data-key="upcoming-sub">Découvrez nos prochaines formations et inscrivez-vous dès maintenant.</p>
       <div class="formations-grid" id="previewFormations"></div>
       <div style="text-align: center;">
@@ -747,7 +747,7 @@
   <!-- ===== FORMATIONS PASSÉES ===== -->
   <section id="formations-past" style="background: white;">
     <div class="container">
-      <h2 class="section-title" data-key="past-title">📚 Nos <span>formations</span> passées</h2>
+      <h2 class="section-title" data-key="past-title"> Nos <span>formations</span> passées</h2>
       <p class="section-sub" data-key="past-sub">Revivez nos formations déjà organisées.</p>
       <div class="formations-grid" id="pastFormations"></div>
     </div>
@@ -756,7 +756,7 @@
   <!-- ===== BLOG ===== -->
   <section id="blog-preview" style="background: var(--krem);">
     <div class="container">
-      <h2 class="section-title" data-key="blog-title">📝 Derniers <span>articles</span></h2>
+      <h2 class="section-title" data-key="blog-title"> Derniers <span>articles</span></h2>
       <p class="section-sub" data-key="blog-sub">Retrouvez nos conseils, astuces et actualités du monde de la technologie.</p>
       <div class="blog-preview" id="previewBlog"></div>
       <div style="text-align: center;">
@@ -768,7 +768,7 @@
   <!-- ===== NEWSLETTER ===== -->
   <section class="newsletter-section" id="newsletter">
     <div class="container">
-      <h2 class="section-title" data-key="newsletter-title">📬 <span style="color: var(--jaune);">Newsletter</span></h2>
+      <h2 class="section-title" data-key="newsletter-title"> <span style="color: var(--jaune);">Newsletter</span></h2>
       <p class="section-sub" data-key="newsletter-sub">Abonnez-vous pour recevoir les prochaines formations et les actualités de HECEFOP.</p>
       <form class="newsletter-form" action="https://formsubmit.co/info@hecefop.com" method="POST">
         <input type="email" name="email" placeholder="Votre adresse email" required>
@@ -814,78 +814,79 @@
       // ===== FORMATIONS À VENIR (UPCOMING) =====
       {
         id: 1,
-        title_fr: "Introduction à l'Intelligence Artificielle",
-        title_en: "Introduction to Artificial Intelligence",
-        date: "2026-07-28",
-        description_fr: "Découvrez les bases de l'IA, les modèles de langage et comment les utiliser dans votre quotidien professionnel.",
-        description_en: "Discover the basics of AI, language models and how to use them in your daily professional life.",
-        image: "formation-ia.jpg",
-        tags_fr: ["IA", "ChatGPT", "Automatisation"],
-        tags_en: ["AI", "ChatGPT", "Automation"],
-        status: "upcoming",
-        link: "formations.html"
-      },
-      {
-        id: 2,
         title_fr: "L'Évolution de l'IA et son Impact sur les Humains",
         title_en: "The Evolution of AI and its Impact on Humans",
         date: "2026-07-28",
         description_fr: "FORMATION GRATUITE - Découvrez ce qui va arriver dans les jours qui viennent avec l'évolution de l'IA et l'impact de l'IA sur les humains.",
         description_en: "FREE TRAINING - Discover what's coming in the days ahead with the evolution of AI and its impact on humans.",
-        image: "ia2829.jpg",
+        image: "assets/ia2829.jpg",
         tags_fr: ["IA", "Formation Gratuite", "Impact"],
         tags_en: ["AI", "Free Training", "Impact"],
         status: "upcoming",
         link: "formations.html"
       },
       {
-        id: 3,
-        title_fr: "Gestion de Projet Agile",
-        title_en: "Agile Project Management",
-        date: "2026-08-11",
-        description_fr: "Apprenez les méthodologies agiles (Scrum, Kanban) pour gérer vos projets efficacement en équipe.",
-        description_en: "Learn Agile methodologies (Scrum, Kanban) to manage your projects effectively as a team.",
-        image: "formation-agile.jpg",
-        tags_fr: ["Agile", "Scrum", "Gestion"],
-        tags_en: ["Agile", "Scrum", "Management"],
+        id: 2,
+        title_fr: "Protection et Sécurité de vos Données",
+        title_en: "Data Protection and Security",
+        date: "2026-08-05",
+        description_fr: "Apprenez à protéger vos données personnelles et professionnelles. Comprendre les menaces, les bonnes pratiques et les outils pour sécuriser vos informations en ligne.",
+        description_en: "Learn to protect your personal and professional data. Understand threats, best practices and tools to secure your online information.",
+        image: "securite.jpg",
+        tags_fr: ["Sécurité", "Protection", "Données", "Vie Privée"],
+        tags_en: ["Security", "Protection", "Data", "Privacy"],
         status: "upcoming",
         link: "formations.html"
       },
-      // ===== FORMATIONS PASSÉES (PAST) =====
       {
         id: 4,
+        title_fr: "Utilisation Efficace des Réseaux Sociaux",
+        title_en: "Effective Use of Social Networks",
+        date: "2026-08-12",
+        description_fr: "Apprenez à utiliser Facebook et TikTok pour vendre vos produits et services. Stratégies de marketing digital, création de contenu engageant et techniques de vente sur les réseaux sociaux.",
+        description_en: "Learn to use Facebook and TikTok to sell your products and services. Digital marketing strategies, engaging content creation and sales techniques on social networks.",
+        image: "network.jpg",
+        tags_fr: ["Facebook", "TikTok", "Marketing Digital", "Vente"],
+        tags_en: ["Facebook", "TikTok", "Digital Marketing", "Sales"],
+        status: "upcoming",
+        link: "formations.html"
+      },
+
+      // ===== FORMATIONS PASSÉES (PAST) =====
+      {
+        id: 7,
         title_fr: "Comment se démarquer de la masse ?",
         title_en: "How to stand out from the crowd?",
         date: "2026-06-20",
         description_fr: "Développement personnel - Apprenez à vous distinguer dans un monde compétitif en développant votre marque personnelle et vos compétences uniques.",
         description_en: "Personal development - Learn to stand out in a competitive world by developing your personal brand and unique skills.",
-        image: "decision.png",
+        image: "assets/decision.png",
         tags_fr: ["Développement Personnel", "Marque Personnelle"],
         tags_en: ["Personal Development", "Personal Brand"],
         status: "past",
         link: "formations.html"
       },
       {
-        id: 5,
+        id: 8,
         title_fr: "Kijan w itilize rezo sosyo yo ?",
         title_en: "How to use social networks?",
         date: "2026-07-14",
         description_fr: "Apprenez à utiliser les réseaux sociaux de manière stratégique pour développer votre présence en ligne et votre réseau professionnel.",
         description_en: "Learn to use social networks strategically to develop your online presence and professional network.",
-        image: "rezo-sosyo.jpg",
+        image: "assets/rezososyo.jpg",
         tags_fr: ["Rezo Sosyal", "Réseaux Sociaux", "Communication"],
         tags_en: ["Social Networks", "Communication"],
         status: "past",
         link: "formations.html"
       },
       {
-        id: 6,
+        id: 9,
         title_fr: "Dynamique Entrepreneuriale",
         title_en: "Entrepreneurial Dynamics",
         date: "2026-07-21",
         description_fr: "Débloquez votre potentiel d'entrepreneur et bâtissez un avenir à la hauteur de vos ambitions ! Développez votre mindset d'entrepreneur, fixez des objectifs clairs et boostez votre confiance.",
         description_en: "Unlock your entrepreneurial potential and build a future worthy of your ambitions! Develop your entrepreneurial mindset, set clear goals and boost your confidence.",
-        image: "dynamique.jpg",
+        image: "assets/dynamique.jpg",
         tags_fr: ["Entrepreneuriat", "Développement Personnel", "Mindset"],
         tags_en: ["Entrepreneurship", "Personal Development", "Mindset"],
         status: "past",
@@ -900,21 +901,21 @@
         title_fr: "Les tendances IA en 2026",
         title_en: "AI Trends in 2026",
         date: "2026-07-15",
-        image: "blog-ia.jpg",
+        image: "tendance.jpg",
         excerpt_fr: "Découvrez les tendances majeures de l'intelligence artificielle pour l'année 2026.",
         excerpt_en: "Discover the major trends in artificial intelligence for 2026.",
         author: "Roosben Jean",
-        author_role: "Expert IA"
+        author_role: "Développeur"
       },
       {
         id: 2,
         title_fr: "Les bases du développement web",
         title_en: "Web Development Basics",
         date: "2026-07-10",
-        image: "blog-web.jpg",
+        image: "web.jpg",
         excerpt_fr: "Un guide complet pour débuter dans le développement web.",
         excerpt_en: "A complete guide to get started in web development.",
-        author: "Marie Paul",
+        author: "Roosben Jean",
         author_role: "Développeuse"
       },
       {
@@ -922,11 +923,11 @@
         title_fr: "Pourquoi apprendre la gestion de projet ?",
         title_en: "Why learn project management?",
         date: "2026-07-05",
-        image: "blog-gestion.jpg",
+        image: "gestion.jpg",
         excerpt_fr: "La gestion de projet est une compétence clé pour tout professionnel.",
         excerpt_en: "Project management is a key skill for any professional.",
-        author: "Jean Claude",
-        author_role: "Chef de projet"
+        author: "Roosben Jean",
+        author_role: "Développeur"
       }
     ];
 
