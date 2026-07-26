@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours CML - Construction et Maintenance Logicielle</title>
+    <style>
+        /* ---------- RESET & BASE ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #f4f7fc;
+            color: #1e2a3a;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -12px rgba(0, 20, 40, 0.25);
+            padding: 2.5rem 2.8rem;
+        }
+
+        /* ---------- TYPOGRAPHIE ---------- */
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            color: #0a2540;
+            margin-bottom: 0.2rem;
+        }
+
+        .subhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            border-bottom: 3px solid #e6edf5;
+            padding-bottom: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .subhead .date {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2b6c8f;
+            background: #e3f0fa;
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+        }
+
+        .subhead .subtitle {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: #2c5775;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            color: #0d3b57;
+            margin-top: 2.2rem;
+            margin-bottom: 0.8rem;
+            border-left: 6px solid #2b7ba8;
+            padding-left: 1rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #1f4b66;
+            margin-top: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ---------- CARTES & BLOCS ---------- */
+        .card {
+            background: #f9fcff;
+            border-radius: 18px;
+            padding: 1.6rem 2rem;
+            margin-bottom: 1.8rem;
+            border: 1px solid #e9f0f7;
+            transition: box-shadow 0.15s;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 14px rgba(0, 40, 70, 0.06);
+        }
+
+        .card-intro {
+            background: #eef6fb;
+            border-left: 6px solid #2b7ba8;
+        }
+
+        /* ---------- LISTES ---------- */
+        ul, ol {
+            padding-left: 1.6rem;
+            margin: 0.6rem 0 0.4rem 0;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 2rem;
+        }
+
+        @media (max-width: 650px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.2rem;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background: #d4e4f0;
+            color: #124263;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.1rem 0.9rem;
+            border-radius: 30px;
+            margin-right: 0.4rem;
+        }
+
+        .list-inline {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.2rem;
+        }
+
+        .list-inline li {
+            background: #eef3f9;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* ---------- BLOC SPÉCIFIQUE TYPES ---------- */
+        .type-block {
+            background: #f2f8fe;
+            border-radius: 14px;
+            padding: 1rem 1.6rem;
+            margin-top: 0.6rem;
+        }
+
+        .type-block strong {
+            color: #0d3b57;
+        }
+
+        .type-block ul {
+            margin-top: 0.2rem;
+        }
+
+        /* ---------- DEVOIR ---------- */
+        .devoir {
+            background: #f0f5fa;
+            border-radius: 20px;
+            padding: 1.8rem 2.2rem;
+            margin-top: 2.5rem;
+            border: 2px dashed #2b7ba8;
+        }
+
+        .devoir h2 {
+            border-left-color: #cc7b2b;
+            color: #a3581e;
+            margin-top: 0;
+        }
+
+        .devoir .pts {
+            display: inline-block;
+            background: #cc7b2b;
+            color: white;
+            font-weight: 700;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+        }
+
+        /* ---------- FOOTER ---------- */
+        .footer-note {
+            margin-top: 2.8rem;
+            padding-top: 1.2rem;
+            border-top: 2px solid #e6edf5;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #4a667a;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 700px) {
+            .container {
+                padding: 1.6rem 1.2rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .subhead {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.4rem;
+            }
+            .subhead .date {
+                align-self: flex-start;
+            }
+            .card {
+                padding: 1.2rem 1.2rem;
+            }
+            .devoir {
+                padding: 1.2rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ========== EN-TÊTE ========== -->
+    <header>
+        <h1>COURS CML</h1>
+        <div class="subhead">
+            <span class="subtitle">Construction et Maintenance Logicielle</span>
+            <span class="date">13 Juin 2026</span>
+            <a href="testslogiciel.html" class="back-link"><i class="fas fa-arrow-left"></i> Cours tests de logiciel</a>
+        </div>
+    </header>
+
+    <!-- ========== REVUE DE CODE ========== -->
+    <section>
+        <h2>🔍 Revue de code</h2>
+        <div class="card card-intro">
+            <p style="font-size:1.15rem; font-weight:500; color:#0d3b57;">
+                Activité consistant à examiner le code source écrit par un développeur
+                afin de détecter les erreurs, améliorer la qualité du code, vérifier le
+                respect des normes et partager les connaissances au sein de l'équipe.
+            </p>
+        </div>
+    </section>
+
+    <!-- ========== AVANTAGES ========== -->
+    <section>
+        <h2>✅ Avantages</h2>
+        <div class="card">
+            <ul>
+                <li><strong>Réduction des erreurs</strong> – détection précoce des bugs.</li>
+                <li><strong>Amélioration de la maintenabilité</strong> – code plus propre et plus facile à faire évoluer.</li>
+                <li><strong>Standardisation du code</strong> – respect des conventions et des bonnes pratiques.</li>
+                <li><strong>Formation continue des développeurs</strong> – apprentissage par les retours des pairs.</li>
+                <li><strong>Amélioration de la collaboration</strong> – renforcement de la cohésion d’équipe.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ========== TYPES DE REVUE ========== -->
+    <section>
+        <h2>📋 Types de Revue de code</h2>
+        <div class="card">
+            <div class="type-block">
+                <strong>a) Revue Informelle</strong>
+                <p style="margin:0.2rem 0 0.4rem 0; color:#2c5775;">Discussion rapide entre collègues, sans procédure stricte.</p>
+            </div>
+
+            <div class="type-block">
+                <strong>b) Revue Par Pair (Peer Review)</strong>
+                <p style="margin:0.2rem 0 0.4rem 0; color:#2c5775;">Examen systématique par un ou plusieurs développeurs de l’équipe.</p>
+            </div>
+
+            <div class="type-block">
+                <strong>c) Inspection formelle (Révision Technique Formelle – RTF)</strong>
+                <ul>
+                    <li>Procédure structurée</li>
+                    <li>Plusieurs participants (auteur, réviseur, modérateur, etc.)</li>
+                    <li>Documentation obligatoire (rapport d’inspection)</li>
+                </ul>
+            </div>
+
+            <div class="type-block">
+                <strong>d) Revue assistée par outil</strong>
+                <ul>
+                    <li><strong>GitHub</strong> – Pull Requests</li>
+                    <li><strong>GitLab</strong> – Merge Requests</li>
+                    <li><strong>BitBucket</strong> – Pull Requests</li>
+                    <li><strong>SonarQube</strong> – analyse automatique de la qualité du code</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CRITÈRES ========== -->
+    <section>
+        <h2>🎯 Critères d'une bonne Revue</h2>
+        <div class="card">
+            <ul class="list-inline">
+                <li><span class="badge">✔</span> Fonctionnalité</li>
+                <li><span class="badge">✔</span> Sécurité</li>
+                <li><span class="badge">✔</span> Lisibilité</li>
+                <li><span class="badge">✔</span> Performance</li>
+                <li><span class="badge">✔</span> Maintenabilité</li>
+                <li><span class="badge">✔</span> Tests</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ========== ÉTAPES ========== -->
+    <section>
+        <h2>📌 Étapes d'une revue</h2>
+        <div class="card">
+            <ol>
+                <li><strong>Soumission du code</strong> – le développeur propose ses modifications.</li>
+                <li><strong>Analyse</strong> – examen du code par les réviseurs.</li>
+                <li><strong>Commentaires</strong> – retour écrit sur les points à améliorer.</li>
+                <li><strong>Correction</strong> – l’auteur modifie le code en fonction des retours.</li>
+                <li><strong>Validation</strong> – approbation finale par les réviseurs.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ========== ERREURS COURANTES ========== -->
+    <section>
+        <h2>⚠️ Erreurs courantes détectées</h2>
+        <div class="card">
+            <div class="grid-2col">
+                <ul>
+                    <li>Variables inutilisées</li>
+                    <li>Duplication de code</li>
+                    <li>Mauvaise gestion des Exceptions</li>
+                </ul>
+                <ul>
+                    <li>Requêtes SQL non sécurisées</li>
+                    <li>Mauvaise gestion de la mémoire</li>
+                    <li>Faille de sécurité</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BONNES PRATIQUES ========== -->
+    <section>
+        <h2>💡 Bonnes pratiques</h2>
+        <div class="card">
+            <ul>
+                <li><strong>Faire des revues courtes</strong> – privilégier des sessions de 30 à 60 minutes.</li>
+                <li><strong>Être respectueux</strong> – formuler les retours de manière constructive.</li>
+                <li><strong>Commenter le code et non la personne</strong> – critiquer le code, pas le développeur.</li>
+                <li><strong>Utiliser les standards de codage</strong> – conventions de nommage, formatage, etc.</li>
+                <li><strong>Revoir le code régulièrement</strong> – intégrer la revue dans le flux de travail quotidien.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ========== DEVOIR DE RECHERCHE ========== -->
+    <section class="devoir">
+        <h2>📘 DEVOIR DE RECHERCHE</h2>
+        <p style="font-size:1.1rem; margin-bottom:0.8rem;">
+            Présenter une recherche basée sur la <strong>programmation en binôme (Pair Programming)</strong>.
+        </p>
+        <p style="margin-bottom:0.5rem;">
+            À présenter au prochain cours en binôme &nbsp;<span class="pts">10 pts</span>
+        </p>
+        <ul style="margin-top:0.6rem;">
+            <li><strong>Wap di kisa li ye</strong> – définition et principes fondamentaux.</li>
+            <li><strong>Koman yo aplikel nan devlopman</strong> – mise en œuvre concrète dans les projets.</li>
+        </ul>
+
+        <div style="margin-top:1.6rem; padding-top:1.2rem; border-top:2px solid #d6e2ed;">
+            <p style="font-weight:600; color:#0d3b57;">Et également sur :</p>
+            <ul>
+                <li><strong>Les tests logiciels</strong> – différents types de test et techniques de test.</li>
+                <li><strong>Cycle de vie des tests</strong> et <strong>cas de tests</strong>.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ========== PIED DE PAGE ========== -->
+    <div class="footer-note">
+        Cours CML – Construction et Maintenance Logicielle &bull; 2026
+    </div>
+
+</div>
+<!-- fin container -->
+
+</body>
+</html>

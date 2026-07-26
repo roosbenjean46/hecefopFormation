@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours CML – Tests Logiciels (Complet)</title>
+    <style>
+        /* ---------- RESET & BASE ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #f4f8fd;
+            color: #142b3b;
+            padding: 2rem 1.5rem;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 20, 40, 0.30);
+            padding: 2.8rem 3.2rem;
+        }
+
+        /* ---------- EN-TÊTE ---------- */
+        .header-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .instructor {
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #005a8c;
+            background: #e5f0fa;
+            padding: 0.3rem 1.6rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            border: 1px solid #c5d9ec;
+        }
+
+        .date-badge {
+            font-weight: 500;
+            color: #1f5a7a;
+            background: #eef4f9;
+            padding: 0.3rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+        }
+
+        h1 {
+            font-size: 2.9rem;
+            color: #07324b;
+            margin-top: 0.3rem;
+            margin-bottom: 0.1rem;
+            letter-spacing: -0.8px;
+        }
+
+        .subhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            border-bottom: 4px solid #e2ecf7;
+            padding-bottom: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .subhead .subtitle {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: #2d5c7a;
+        }
+
+        .subhead .pill-topics {
+            background: #dce8f3;
+            color: #0d3b57;
+            font-weight: 700;
+            padding: 0.2rem 1.8rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            border: 1px solid #b7cddf;
+        }
+
+        /* ---------- TYPOGRAPHIE & BLOCS ---------- */
+        h2 {
+            font-size: 2.1rem;
+            color: #07324b;
+            margin-top: 2.8rem;
+            margin-bottom: 1.2rem;
+            border-left: 10px solid #e8832b;
+            padding-left: 1.4rem;
+            background: linear-gradient(to right, #fafcfd, transparent);
+        }
+
+        h2.first-section {
+            border-left-color: #0066a0;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #1a4b66;
+            margin-top: 1.8rem;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+        }
+
+        .card {
+            background: #fafcff;
+            border-radius: 20px;
+            padding: 1.6rem 2.2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #e4eefa;
+            box-shadow: 0 4px 12px rgba(0, 30, 60, 0.04);
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0, 40, 80, 0.08);
+        }
+
+        .card-highlight {
+            background: #f2f8ff;
+            border-left: 6px solid #0066a0;
+        }
+
+        .card-orange {
+            background: #fefaf5;
+            border-left: 6px solid #e8832b;
+        }
+
+        /* ---------- GRILLES & LISTES ---------- */
+        ul,
+        ol {
+            padding-left: 1.8rem;
+            margin: 0.6rem 0 0.4rem 0;
+        }
+
+        li {
+            margin-bottom: 0.45rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem 2rem;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 700px) {
+            .grid-2col,
+            .grid-3col {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            .header-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .container {
+                padding: 1.5rem 1.2rem;
+            }
+            h1 {
+                font-size: 2.1rem;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background: #dae7f5;
+            color: #004070;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 0.15rem 0.9rem;
+            border-radius: 30px;
+            margin-right: 0.4rem;
+        }
+
+        .badge-orange {
+            background: #f5e3d4;
+            color: #a8551a;
+        }
+
+        .list-inline {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.2rem;
+        }
+
+        .list-inline li {
+            background: #eef3f9;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* ---------- TABLEAU COMPARAISON TECHNIQUES ---------- */
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.8rem;
+            font-size: 0.98rem;
+        }
+
+        .tech-table th {
+            background: #07324b;
+            color: white;
+            font-weight: 600;
+            padding: 0.8rem 1rem;
+            text-align: left;
+        }
+
+        .tech-table td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid #e2ecf7;
+            vertical-align: top;
+        }
+
+        .tech-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .tech-table tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        .tech-table .icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        /* ---------- EXEMPLE CAS DE TEST (TABLEAU) ---------- */
+        .testcase-example {
+            background: #f3f9ff;
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            margin-top: 1rem;
+            border: 1px solid #cfe0f0;
+            overflow-x: auto;
+        }
+
+        .testcase-example table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .testcase-example th {
+            background: #07324b;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1rem;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .testcase-example td {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid #d6e4f0;
+            background: white;
+        }
+
+        .testcase-example tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ---------- DEVOIR ---------- */
+        .devoir {
+            background: #eef6fe;
+            border-radius: 24px;
+            padding: 2rem 2.5rem;
+            margin-top: 3rem;
+            border: 2px dashed #0066a0;
+        }
+
+        .devoir h2 {
+            border-left-color: #cc7b2b;
+            color: #a3581e;
+            margin-top: 0;
+            background: none;
+            padding-left: 1rem;
+        }
+
+        .devoir .pts {
+            display: inline-block;
+            background: #cc7b2b;
+            color: white;
+            font-weight: 700;
+            padding: 0.2rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        .footer-note {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #e2ecf7;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #4a667a;
+        }
+
+        .highlight-text {
+            background: #fcf3e0;
+            padding: 0.1rem 0.4rem;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #a85c1a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ========== EN-TÊTE ========== -->
+    <header>
+        <div class="header-meta">
+            <span class="instructor"> Avec Roosben JEAN</span>
+            <span class="date-badge"> 13 Juin 2026</span>
+        </div>
+        <h1>COURS CML – TESTS LOGICIELS</h1>
+        <div class="subhead">
+            <span class="subtitle">Construction et Maintenance Logicielle</span>
+            <span class="pill-topics"> Niveaux · Techniques · Cas de test</span>
+                        <a href="mes-cours.html" class="back-link"><i class="fas fa-arrow-left"></i> Retour Revue de code</a>
+        </div>
+    </header>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 1 : INTRODUCTION                                          -->
+    <!-- ================================================================ -->
+    <section>
+        <h2 class="first-section"> Introduction aux tests logiciels</h2>
+        <div class="card card-highlight">
+            <p style="font-size:1.2rem; color:#07324b; font-weight:500;">
+                Le test logiciel est un processus d'<strong>évaluation</strong> et de <strong>validation</strong>
+                d'un système ou d'une application. Il vise à identifier les défauts, à vérifier la conformité
+                aux exigences et à garantir la qualité du produit avant sa mise en production.
+            </p>
+            <ul style="margin-top:0.8rem;">
+                <li><strong>Objectif principal</strong> : Détecter les erreurs le plus tôt possible pour réduire les coûts de correction.</li>
+                <li><strong>Garantie</strong> : Assurer que le logiciel fonctionne comme prévu dans toutes les conditions.</li>
+                <li><strong>Confiance</strong> : Donner aux parties prenantes (clients, utilisateurs) la certitude de la fiabilité du système.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 2 : DIFFÉRENTS TESTS (NIVEAUX)                           -->
+    <!-- ================================================================ -->
+    <section>
+        <h2>📊 1. Les différents niveaux de test</h2>
+        <p style="margin-bottom:1rem; color:#2d5c7a;">Les tests sont organisés par niveaux, chacun ciblant un périmètre spécifique. On parle souvent de <strong>pyramide des tests</strong>.</p>
+
+        <div class="grid-2col">
+            <!-- Test unitaire -->
+            <div class="card" style="margin-bottom:0;">
+                <h3 style="margin-top:0; font-size:1.3rem;"> Tests unitaires</h3>
+                <p><strong>Portée :</strong> Une unité de code isolée (fonction, méthode, classe).</p>
+                <p><strong>Objectif :</strong> Vérifier le comportement logique de chaque brique élémentaire.</p>
+                <p><strong>Exécution :</strong> Généralement automatisés (JUnit, PyTest, etc.).</p>
+                <p><span class="badge">✔</span> Rapides et nombreux.</p>
+            </div>
+            <!-- Test d'intégration -->
+            <div class="card" style="margin-bottom:0;">
+                <h3 style="margin-top:0; font-size:1.3rem;"> Tests d'intégration</h3>
+                <p><strong>Portée :</strong> Interactions entre plusieurs modules/services.</p>
+                <p><strong>Objectif :</strong> Valider la communication (API, bases de données, files d'attente).</p>
+                <p><strong>Exemple :</strong> Vérifier qu'une requête HTTP renvoie les données attendues depuis la BDD.</p>
+                <p><span class="badge">✔</span> Détecte les problèmes d'interface.</p>
+            </div>
+            <!-- Test système -->
+            <div class="card" style="margin-bottom:0;">
+                <h3 style="margin-top:0; font-size:1.3rem;"> Tests système</h3>
+                <p><strong>Portée :</strong> L'application complète dans son environnement.</p>
+                <p><strong>Objectif :</strong> Vérifier les fonctionnalités, les performances, la sécurité et le comportement global.</p>
+                <p><strong>Exemple :</strong> Test de charge, test de bout en bout (end-to-end).</p>
+                <p><span class="badge">✔</span> Proche du comportement réel.</p>
+            </div>
+            <!-- Test d'acceptation -->
+            <div class="card" style="margin-bottom:0;">
+                <h3 style="margin-top:0; font-size:1.3rem;"> Tests d'acceptation (UAT)</h3>
+                <p><strong>Portée :</strong> Validation par le client ou les utilisateurs finaux.</p>
+                <p><strong>Objectif :</strong> S'assurer que le produit répond aux besoins métier et aux exigences fonctionnelles.</p>
+                <p><strong>Exemple :</strong> Scénarios d'utilisation réels (parcours utilisateur).</p>
+                <p><span class="badge">✔</span> Dernière étape avant la livraison.</p>
+            </div>
+        </div>
+
+        <!-- Tests supplémentaires -->
+        <div class="card card-orange" style="margin-top: 1.5rem;">
+            <h3 style="margin-top:0; font-size:1.2rem;"> Autres types de tests (non-fonctionnels & maintenance)</h3>
+            <div class="grid-2col" style="margin-top:0.2rem;">
+                <ul>
+                    <li><strong>Tests de régression</strong> – Vérifier que les nouvelles modifications n'ont pas cassé l'existant.</li>
+                    <li><strong>Tests de performance / charge</strong> – Mesurer la réactivité et la stabilité sous pression.</li>
+                    <li><strong>Tests de sécurité</strong> – Identifier les vulnérabilités (injections SQL, XSS, etc.).</li>
+                </ul>
+                <ul>
+                    <li><strong>Tests d'installation / déploiement</strong> – Valider le processus de mise en production.</li>
+                    <li><strong>Tests de compatibilité</strong> – Vérifier le fonctionnement sur différents navigateurs, appareils, versions.</li>
+                    <li><strong>Tests de maintenance</strong> – Effectués après une modification pour s'assurer de la stabilité.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 3 : TECHNIQUES DE TEST (BOÎTE NOIRE / BLANCHE / GRISE)   -->
+    <!-- ================================================================ -->
+    <section>
+        <h2>🔬 2. Techniques de test</h2>
+        <p style="margin-bottom:1rem; color:#2d5c7a;">Les techniques définissent <strong>comment</strong> on conçoit les tests. Elles se distinguent par le niveau de connaissance du code source.</p>
+
+        <div style="overflow-x:auto;">
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th style="width:22%;">Technique</th>
+                        <th style="width:38%;">Principe</th>
+                        <th style="width:40%;">Caractéristiques & Exemples</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="icon">⚫</span> <strong>Boîte noire</strong></td>
+                        <td>Test du comportement externe <strong>sans</strong> connaissance du code interne. Le testeur se base sur les spécifications fonctionnelles.</td>
+                        <td>
+                            <ul style="margin:0; padding-left:1.2rem;">
+                                <li><strong>Exemples :</strong> Tests d'acceptation, tests d'intégration.</li>
+                                <li><strong>Techniques :</strong> Partitionnement d'équivalence, analyse des valeurs limites.</li>
+                                <li><span class="badge">✔</span> Orienté utilisateur.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="icon">⚪</span> <strong>Boîte blanche</strong></td>
+                        <td>Analyse de la <strong>structure interne</strong>, de la logique et des chemins d'exécution. Le testeur a un accès total au code source.</td>
+                        <td>
+                            <ul style="margin:0; padding-left:1.2rem;">
+                                <li><strong>Exemples :</strong> Tests unitaires, tests de couverture.</li>
+                                <li><strong>Techniques :</strong> Couverture des instructions, des branches, des chemins (MCDC).</li>
+                                <li><span class="badge">✔</span> Détecte les chemins morts et la logique complexe.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="icon">🔘</span> <strong>Boîte grise</strong></td>
+                        <td>Approche <strong>hybride</strong> combinant les deux précédentes. Le testeur dispose d'une connaissance <strong>partielle</strong> (architecture, schéma de BDD, API).</td>
+                        <td>
+                            <ul style="margin:0; padding-left:1.2rem;">
+                                <li><strong>Exemples :</strong> Tests de base de données, tests d'API avec vérification des schémas.</li>
+                                <li><strong>Avantage :</strong> Permet de concevoir des tests plus précis qu'en boîte noire, sans être aussi intrusif que la boîte blanche.</li>
+                                <li><span class="badge">✔</span> Idéal pour les tests d'intégration avancés.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top:0.8rem; font-style:italic; color:#3f5f78;">💡 Ces techniques sont complémentaires : une stratégie de test efficace utilise généralement un mélange des trois.</p>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 4 : CYCLE DE VIE DES TESTS (STLC)                        -->
+    <!-- ================================================================ -->
+    <section>
+        <h2>🔄 3. Cycle de vie des tests (STLC)</h2>
+        <div class="card">
+            <p style="font-weight:500; color:#07324b;">Le <strong>Software Testing Life Cycle (STLC)</strong> est une séquence d'activités menées pendant le processus de test.</p>
+            <ol style="margin-top:0.8rem; font-weight:500;">
+                <li><strong>Analyse des exigences</strong> – Étudier les besoins fonctionnels et non-fonctionnels pour identifier ce qui est testable.</li>
+                <li><strong>Planification des tests</strong> – Définir la stratégie, les objectifs, les ressources, les outils, le calendrier et l'estimation des efforts.</li>
+                <li><strong>Conception des cas de test</strong> – Créer des scénarios, des données de test et des procédures d'exécution (dérivés des exigences ou du code).</li>
+                <li><strong>Configuration de l'environnement</strong> – Préparer les infrastructures (serveurs, bases de données, réseaux) nécessaires à l'exécution.</li>
+                <li><strong>Exécution des tests</strong> – Lancer les cas de test, enregistrer les résultats et ouvrir des tickets pour les anomalies (bugs).</li>
+                <li><strong>Suivi &amp; Reporting</strong> – Analyser les résultats, mesurer la couverture, suivre les corrections et communiquer l'état d'avancement.</li>
+                <li><strong>Clôture</strong> – Synthétiser les résultats, évaluer la qualité, archiver les livrables (rapports, jeux de données) et identifier les leçons apprises.</li>
+            </ol>
+            <div style="background:#e2ecf7; border-radius:12px; padding:0.6rem 1.2rem; margin-top:1rem;">
+                <span class="badge">💡 Bon à savoir</span> Le STLC est itératif : en pratique, on revient souvent sur les étapes précédentes (ex : nouvelles exigences → nouvelle conception).
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 5 : CAS DE TEST (TEST CASES)                             -->
+    <!-- ================================================================ -->
+    <section>
+        <h2>📋 4. Cas de test (Test Cases)</h2>
+
+        <div class="card">
+            <h3 style="margin-top:0; font-size:1.3rem;">📌 Définition</h3>
+            <p style="font-size:1.05rem;">
+                Un <strong>cas de test</strong> est un ensemble de conditions, de données d'entrée, d'actions à effectuer et de résultats attendus, conçu pour vérifier une fonctionnalité ou un chemin d'exécution spécifique du logiciel.
+            </p>
+            <p style="margin-top:0.4rem;">Chaque cas de test doit être <strong>indépendant</strong>, <strong>reproductible</strong> et <strong>traçable</strong> par rapport à une exigence.</p>
+        </div>
+
+        <div class="card card-orange">
+            <h3 style="margin-top:0; font-size:1.3rem;">🧩 Structure typique d'un cas de test</h3>
+            <ul>
+                <li><strong>ID (Identifiant)</strong> – Référence unique (ex : TC-001).</li>
+                <li><strong>Titre / Description</strong> – Objectif du test (que vérifie-t-on ?).</li>
+                <li><strong>Pré-conditions</strong> – État initial nécessaire (ex : utilisateur connecté, données préchargées).</li>
+                <li><strong>Données d'entrée</strong> – Valeurs ou paramètres fournis au système.</li>
+                <li><strong>Étapes de test</strong> – Actions séquentielles à effectuer.</li>
+                <li><strong>Résultat attendu</strong> – Comportement ou sortie souhaitée du système.</li>
+                <li><strong>Résultat obtenu</strong> – Constatation réelle après exécution (rempli pendant le test).</li>
+                <li><strong>Statut</strong> – <span class="highlight-text">Pass</span> (réussi) / <span class="highlight-text" style="background:#fce1e1; color:#b33;">Fail</span> (échec) / <span class="highlight-text" style="background:#e5e5e5; color:#555;">Bloqué</span>.</li>
+            </ul>
+        </div>
+
+        <!-- Exemple concret -->
+        <div class="card">
+            <h3 style="margin-top:0; font-size:1.3rem;">📝 Exemple concret : Test de connexion</h3>
+            <p style="color:#2d5c7a;">Cas de test pour la fonctionnalité "Authentification" d'une application web.</p>
+
+            <div class="testcase-example">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Champ</th>
+                            <th>Valeur / Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>ID</strong></td><td>TC-AUTH-001</td></tr>
+                        <tr><td><strong>Titre</strong></td><td>Vérifier la connexion avec des identifiants valides</td></tr>
+                        <tr><td><strong>Pré-conditions</strong></td><td>Base de données contenant un utilisateur (login : "roosben", mot de passe : "Cml2026!")</td></tr>
+                        <tr><td><strong>Données d'entrée</strong></td><td>login = "roosben" , mot de passe = "Cml2026!"</td></tr>
+                        <tr><td><strong>Étapes</strong></td><td>1. Saisir le login. 2. Saisir le mot de passe. 3. Cliquer sur "Se connecter".</td></tr>
+                        <tr><td><strong>Résultat attendu</strong></td><td>Redirection vers le tableau de bord (Dashboard). Affichage du message "Bienvenue Roosben".</td></tr>
+                        <tr><td><strong>Résultat obtenu</strong></td><td><span style="color:#888;">(À compléter lors de l'exécution)</span></td></tr>
+                        <tr><td><strong>Statut</strong></td><td><span style="color:#888;">(À compléter : Pass / Fail)</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top:1rem; font-size:0.95rem; font-style:italic; color:#3f5f78;">
+                📎 <strong>Remarque :</strong> On peut enrichir ce cas avec des variantes pour tester les mots de passe erronés, les comptes verrouillés, etc.
+            </p>
+        </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 6 : BONNES PRATIQUES                                     -->
+    <!-- ================================================================ -->
+    <section>
+        <h2>💡 5. Bonnes pratiques en tests logiciels</h2>
+        <div class="card card-highlight">
+            <ul>
+                <li><strong>Automatiser les tests régressifs</strong> – Gagner du temps et assurer une exécution fréquente.</li>
+                <li><strong>Écrire des cas de tests simples et compréhensibles</strong> – Faciliter la maintenance par toute l'équipe.</li>
+                <li><strong>Prioriser les tests</strong> – Tester d'abord les fonctionnalités critiques (risques métiers élevés).</li>
+                <li><strong>Maintenir les données de test</strong> – Utiliser des jeux de données fiables et isolés (sandbox).</li>
+                <li><strong>Intégrer les tests dans la CI/CD</strong> – Exécuter les tests automatiquement à chaque livraison (intégration continue).</li>
+                <li><strong>Revoir les tests régulièrement</strong> – Nettoyer les cas obsolètes et les mettre à jour avec les évolutions du logiciel.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 7 : DEVOIR DE RECHERCHE                                  -->
+    <!-- ================================================================ -->
+    <section class="devoir">
+        <h2>📘 DEVOIR DE RECHERCHE</h2>
+        <p style="font-size:1.15rem; margin-bottom:0.8rem;">
+            Présenter une recherche approfondie sur la <strong>programmation en binôme (Pair Programming)</strong>
+            en lien avec les tests logiciels.
+        </p>
+        <p style="margin-bottom:0.5rem;">
+            À présenter au prochain cours en binôme &nbsp;<span class="pts">10 pts</span>
+        </p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1rem;">
+            <div style="background:white; border-radius:16px; padding:1rem 1.5rem; border:1px solid #c5d9ec;">
+                <h4 style="color:#07324b; margin-bottom:0.3rem;">📖 Wap di kisa li ye</h4>
+                <ul>
+                    <li>Définition du Pair Programming (deux développeurs, un poste).</li>
+                    <li>Rôles : <strong>Conducteur</strong> (écrit le code) et <strong>Navigateur</strong> (guide, révise en temps réel).</li>
+                    <li>Principes fondamentaux : communication, revue continue, résolution collective.</li>
+                </ul>
+            </div>
+            <div style="background:white; border-radius:16px; padding:1rem 1.5rem; border:1px solid #c5d9ec;">
+                <h4 style="color:#07324b; margin-bottom:0.3rem;">⚙️ Koman yo aplikel nan devlopman</h4>
+                <ul>
+                    <li>Mise en œuvre concrète (ex: sessions de 45–60 min, alternance des rôles).</li>
+                    <li>Lien avec la <strong>revue de code</strong> et les <strong>tests</strong> (TDD en binôme).</li>
+                    <li>Bénéfices : moins de bugs, meilleure conception, partage des connaissances.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top:1.5rem; padding-top:1.2rem; border-top:2px solid #d6e2ed;">
+            <p style="font-weight:600; color:#0d3b57; font-size:1.05rem;">🔗 Intégration avec le cours :</p>
+            <ul>
+                <li>Comment le Pair Programming améliore-t-il la qualité des <strong>tests unitaires</strong> ?</li>
+                <li>En quoi la revue de code "en direct" facilite-t-elle la détection d'erreurs ?</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ========== PIED DE PAGE ========== -->
+    <div class="footer-note">
+        Cours CML – Construction et Maintenance Logicielle &bull; Enseignant : Roosben JEAN &bull; 2026
+    </div>
+
+</div>
+<!-- fin container -->
+
+</body>
+</html>
