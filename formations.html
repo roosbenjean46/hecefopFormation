@@ -19,6 +19,8 @@
       --blanc: #ffffff;
       --shadow: 0 20px 60px rgba(192, 57, 43, 0.15);
       --radius: 20px;
+      --vert: #27ae60;
+      --gris: #95a5a6;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -156,7 +158,7 @@
       padding: 5px;
     }
 
-    /* ===== MENU MOBILE (slide from left) ===== */
+    /* ===== MENU MOBILE ===== */
     .mobile-overlay {
       display: none;
       position: fixed;
@@ -170,7 +172,6 @@
       transition: opacity 0.3s ease;
     }
     .mobile-overlay.active { display: block; opacity: 1; }
-
     .mobile-menu {
       position: fixed;
       top: 0;
@@ -264,11 +265,11 @@
       border-bottom: 3px solid var(--jaune);
       position: relative;
       overflow: hidden;
-      min-height: 400px;
+      min-height: 320px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 100px 0 60px;
+      padding: 100px 0 50px;
     }
     .page-header::before {
       content: '';
@@ -295,7 +296,6 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      margin-top: 80px;
     }
     .page-header h1 {
       font-size: 2.8rem;
@@ -326,18 +326,18 @@
     /* ===== FILTRES ===== */
     .filters {
       display: flex;
-      gap: 15px;
+      gap: 12px;
       justify-content: center;
       margin: 30px 0 40px;
       flex-wrap: wrap;
     }
     .filters button {
-      padding: 10px 30px;
+      padding: 10px 25px;
       background: white;
       border: 2px solid var(--krem);
       border-radius: 50px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       cursor: pointer;
       transition: 0.3s;
       color: var(--noir-clair);
@@ -350,12 +350,36 @@
       border-color: var(--rouge);
     }
 
-    /* ===== GRILLE FORMATIONS ===== */
+    /* ===== CATEGORIES ===== */
+    .category-section {
+      margin-bottom: 50px;
+    }
+    .category-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--noir);
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .category-title i {
+      color: var(--rouge);
+      font-size: 1.4rem;
+    }
+    .category-divider {
+      width: 60px;
+      height: 4px;
+      background: var(--jaune);
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    /* ===== GRILLE FORMATIONS - 3 par rangée ===== */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 30px;
-      padding-bottom: 50px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
     }
 
     /* ===== CARTE FORMATION ===== */
@@ -369,13 +393,13 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      position: relative;
     }
     .card:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow);
       border-color: var(--jaune);
     }
-
     .card .card-img {
       width: 100%;
       height: 200px;
@@ -392,89 +416,112 @@
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       flex-shrink: 0;
       text-align: center;
       padding: 15px;
     }
     .card .card-img-default i {
-      font-size: 3rem;
+      font-size: 2.5rem;
       display: block;
       margin-bottom: 8px;
       color: var(--jaune);
     }
-
     .card .card-body {
-      padding: 20px 25px 25px;
+      padding: 18px 22px 22px;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
-
     .card .status {
       display: inline-block;
       padding: 3px 14px;
       border-radius: 30px;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       align-self: flex-start;
     }
     .card .status.upcoming { background: var(--jaune); color: var(--noir); }
     .card .status.past { background: var(--krem); color: var(--noir-clair); }
-
+    .card .badge-new {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--rouge);
+      color: white;
+      padding: 3px 10px;
+      border-radius: 30px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      animation: pulse 1.5s infinite;
+      z-index: 10;
+    }
+    .card .badge-gratuit {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--vert);
+      color: white;
+      padding: 3px 10px;
+      border-radius: 30px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      z-index: 10;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
     .card h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--noir);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       line-height: 1.3;
     }
     .card .date {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--noir-clair);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
-    .card .date i { color: var(--rouge); width: 18px; }
-
+    .card .date i { color: var(--rouge); width: 16px; }
     .card .desc {
       color: var(--noir-clair);
-      font-size: 0.9rem;
-      margin-bottom: 14px;
-      line-height: 1.7;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      line-height: 1.6;
       flex: 1;
     }
-
     .card .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 16px;
+      gap: 5px;
+      margin-bottom: 12px;
     }
     .card .tags span {
       background: var(--krem);
-      padding: 3px 14px;
+      padding: 2px 12px;
       border-radius: 30px;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 600;
       color: var(--noir-clair);
     }
-
     .card .btn-group {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
       margin-top: auto;
     }
     .card .btn-inscription {
-      padding: 9px 24px;
+      padding: 8px 20px;
       background: var(--rouge);
       color: white;
       border: none;
       border-radius: 50px;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       cursor: pointer;
       transition: 0.3s;
       font-family: 'Inter', sans-serif;
@@ -484,13 +531,13 @@
       transform: scale(1.04);
     }
     .card .btn-join {
-      padding: 9px 24px;
+      padding: 8px 20px;
       background: var(--jaune);
       color: var(--noir);
       border: none;
       border-radius: 50px;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
@@ -503,21 +550,19 @@
       background: var(--or);
     }
 
-    /* ===== MODAL INSCRIPTION ===== */
+    /* ===== MODAL INSCRIPTION VIA WHATSAPP ===== */
     #inscriptionModal {
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(8px);
-      z-index: 2000;
+      z-index: 3000;
       justify-content: center;
       align-items: center;
       padding: 20px;
     }
-    #inscriptionModal.active {
-      display: flex;
-    }
+    #inscriptionModal.active { display: flex; }
     .modal-box {
       background: white;
       border-radius: var(--radius);
@@ -543,8 +588,24 @@
       transition: 0.3s;
     }
     .modal-box .close-modal:hover { color: var(--noir); transform: rotate(90deg); }
-    .modal-box h2 { color: var(--noir); margin-bottom: 5px; font-size: 1.5rem; }
-    .modal-box .sub { color: var(--noir-clair); margin-bottom: 20px; font-size: 0.9rem; }
+    .modal-box h2 { 
+      color: var(--noir); 
+      margin-bottom: 5px; 
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-box h2 i { color: #25D366; }
+    .modal-box .sub { 
+      color: var(--noir-clair); 
+      margin-bottom: 20px; 
+      font-size: 0.9rem;
+      background: #f0fdf4;
+      padding: 10px 15px;
+      border-radius: 10px;
+      border-left: 3px solid #25D366;
+    }
     .modal-box .form-group { margin-bottom: 15px; }
     .modal-box .form-group label {
       display: block;
@@ -570,7 +631,7 @@
     .modal-box .btn-submit {
       width: 100%;
       padding: 14px;
-      background: var(--rouge);
+      background: #25D366;
       color: white;
       border: none;
       border-radius: 50px;
@@ -578,8 +639,16 @@
       font-size: 1rem;
       cursor: pointer;
       transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
-    .modal-box .btn-submit:hover { background: var(--rouge-fon); transform: translateY(-2px); }
+    .modal-box .btn-submit:hover { 
+      background: #128C7E; 
+      transform: translateY(-2px);
+    }
+    .modal-box .btn-submit i { font-size: 1.2rem; }
 
     /* ===== MODAL CONFIRMATION ===== */
     #confirmModal {
@@ -588,14 +657,12 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(8px);
-      z-index: 2001;
+      z-index: 3001;
       justify-content: center;
       align-items: center;
       padding: 20px;
     }
-    #confirmModal.active {
-      display: flex;
-    }
+    #confirmModal.active { display: flex; }
     .confirm-box {
       background: white;
       border-radius: var(--radius);
@@ -608,18 +675,11 @@
     }
     .confirm-box .icon-success {
       font-size: 4rem;
-      color: #27ae60;
+      color: #25D366;
       margin-bottom: 15px;
     }
-    .confirm-box h2 {
-      color: var(--noir);
-      margin-bottom: 8px;
-    }
-    .confirm-box p {
-      color: var(--noir-clair);
-      font-size: 0.95rem;
-      margin-bottom: 20px;
-    }
+    .confirm-box h2 { color: var(--noir); margin-bottom: 8px; }
+    .confirm-box p { color: var(--noir-clair); font-size: 0.95rem; margin-bottom: 20px; }
     .confirm-box .btn-ok {
       padding: 12px 40px;
       background: var(--rouge);
@@ -658,6 +718,11 @@
     }
 
     /* ===== RESPONSIVE ===== */
+    @media (max-width: 992px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
     @media (max-width: 768px) {
       .top-bar .container { justify-content: center; }
       .top-bar .contact-info { display: none; }
@@ -665,15 +730,18 @@
       .nav-links { display: none; }
       .hamburger { display: block; }
       .mobile-overlay.active { display: block; }
-      .page-header { min-height: 300px; padding: 80px 0 40px; }
+      .page-header { min-height: 260px; padding: 80px 0 35px; }
       .page-header h1 { font-size: 2rem; }
-      .grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .category-title { font-size: 1.3rem; }
     }
-    @media (max-width: 480px) {
-      .grid { grid-template-columns: 1fr; gap: 25px; }
+    @media (max-width: 580px) {
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
       .page-header h1 { font-size: 1.6rem; }
-      .page-header { min-height: 250px; padding: 70px 0 30px; }
-      .filters button { padding: 8px 18px; font-size: 0.8rem; }
+      .page-header { min-height: 200px; padding: 70px 0 25px; }
+      .filters button { padding: 8px 15px; font-size: 0.75rem; }
       .card .card-img { height: 160px; }
       .mobile-menu { width: 260px; left: -260px; }
       .modal-box { padding: 25px; }
@@ -709,11 +777,11 @@
         <span>HECEFOP</span>
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html" data-key="nav-home">Accueil</a></li>
-        <li><a href="a-propos.html" data-key="nav-about">À propos</a></li>
-        <li><a href="formations.html" class="active" data-key="nav-trainings">Formations</a></li>
-        <li><a href="blog.html" data-key="nav-blog">Blog</a></li>
-        <li><a href="contact.html" data-key="nav-contact">Contact</a></li>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="a-propos.html">À propos</a></li>
+        <li><a href="formations.html" class="active">Formations</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
         <li>
           <div class="lang-toggle">
             <button class="active" data-lang="fr" onclick="switchLang('fr')">FR</button>
@@ -736,11 +804,11 @@
       <span>HECEFOP</span>
     </a>
     <ul class="mobile-links">
-      <li><a href="index.html" data-key="nav-home"><i class="fas fa-home"></i> Accueil</a></li>
-      <li><a href="a-propos.html" data-key="nav-about"><i class="fas fa-info-circle"></i> À propos</a></li>
-      <li><a href="formations.html" class="active" data-key="nav-trainings"><i class="fas fa-calendar-alt"></i> Formations</a></li>
-      <li><a href="#" data-key="nav-blog"><i class="fas fa-pen-fancy"></i> Blog</a></li>
-      <li><a href="contact.html" data-key="nav-contact"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+      <li><a href="a-propos.html"><i class="fas fa-info-circle"></i> À propos</a></li>
+      <li><a href="formations.html" class="active"><i class="fas fa-calendar-alt"></i> Formations</a></li>
+      <li><a href="#"><i class="fas fa-pen-fancy"></i> Blog</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
     </ul>
     <div class="mobile-lang">
       <button class="active" data-lang="fr" onclick="switchLang('fr')">FR</button>
@@ -752,8 +820,8 @@
   <div class="page-header">
     <div class="container">
       <h1> Nos <span>Formations</span></h1>
-      <p data-key="header-desc">Découvrez toutes nos formations passées et à venir. Inscrivez-vous dès maintenant !</p>
-      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> <span data-key="back-home">Retour à l'accueil</span></a>
+      <p>Découvrez toutes nos formations par catégorie. Inscrivez-vous dès maintenant !</p>
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
     </div>
   </div>
 
@@ -762,22 +830,25 @@
 
     <!-- FILTRES -->
     <div class="filters" id="filterButtons">
-      <button class="active" data-filter="all" onclick="filterFormations('all')"><span data-key="filter-all">Toutes</span></button>
-      <button data-filter="upcoming" onclick="filterFormations('upcoming')"><span data-key="filter-upcoming">À venir</span></button>
-      <button data-filter="past" onclick="filterFormations('past')"><span data-key="filter-past">Passées</span></button>
+      <button class="active" data-filter="all" onclick="filterFormations('all')">Toutes</button>
+      <button data-filter="upcoming" onclick="filterFormations('upcoming')">À venir</button>
+      <button data-filter="past" onclick="filterFormations('past')">Passées</button>
     </div>
 
-    <!-- GRILLE -->
-    <div class="grid" id="formationsList"></div>
+    <!-- LISTE FORMATIONS PAR CATEGORIE -->
+    <div id="formationsContainer"></div>
 
   </div>
 
-  <!-- ===== MODAL INSCRIPTION ===== -->
+  <!-- ===== MODAL INSCRIPTION VIA WHATSAPP ===== -->
   <div id="inscriptionModal">
     <div class="modal-box">
       <button class="close-modal" onclick="closeInscriptionModal()">&times;</button>
-      <h2> Inscription à la formation</h2>
-      <p class="sub" id="modalFormationInfo">Chargement...</p>
+      <h2><i class="fab fa-whatsapp"></i> Inscription WhatsApp</h2>
+      <p class="sub" id="modalFormationInfo">
+        <i class="fas fa-info-circle" style="color:#25D366;"></i>
+        Cliquez sur le bouton ci-dessous pour vous inscrire via WhatsApp
+      </p>
       <form id="inscriptionForm" onsubmit="submitInscription(event)">
         <input type="hidden" id="modalFormationId">
         <div class="form-group">
@@ -793,10 +864,13 @@
           <input type="email" id="email" placeholder="votre@email.com" required>
         </div>
         <div class="form-group">
-          <label for="telephone">Téléphone</label>
-          <input type="tel" id="telephone" placeholder="(+509) 33 87 35 21">
+          <label for="telephone">Téléphone <span style="color:var(--rouge);">*</span></label>
+          <input type="tel" id="telephone" placeholder="(+509) 33 87 35 21" required>
         </div>
-        <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Confirmer l'inscription</button>
+        <button type="submit" class="btn-submit">
+          <i class="fab fa-whatsapp"></i> 
+          <span id="whatsappBtnText">S'inscrire via WhatsApp</span>
+        </button>
       </form>
     </div>
   </div>
@@ -804,9 +878,9 @@
   <!-- ===== MODAL CONFIRMATION ===== -->
   <div id="confirmModal">
     <div class="confirm-box">
-      <div class="icon-success"><i class="fas fa-check-circle"></i></div>
-      <h2>✅ Inscription confirmée !</h2>
-      <p>Votre inscription a été enregistrée avec succès. Vous recevrez un email de confirmation avec tous les détails.</p>
+      <div class="icon-success"><i class="fab fa-whatsapp"></i></div>
+      <h2>✅ Envoyé sur WhatsApp !</h2>
+      <p>Votre message a été envoyé avec succès. Vous recevrez une confirmation par WhatsApp sous 24h.</p>
       <button class="btn-ok" onclick="closeConfirmModal()">OK</button>
     </div>
   </div>
@@ -822,101 +896,362 @@
         <a href="mailto:contact01hecefop@gmail.com"><i class="fas fa-envelope"></i></a>
         <a href="https://wa.me/50944725964" target="_blank"><i class="fab fa-whatsapp"></i></a>
       </div>
-      <p style="margin-bottom: 5px;" data-key="footer-text">© 2026 HECEFOP - Centre de Formation Professionnelle</p>
-      <p style="font-size: 0.85rem; opacity: 0.7;" data-key="footer-rights">Tous droits réservés</p>
+      <p style="margin-bottom: 5px;">© 2026 HECEFOP - Centre de Formation Professionnelle</p>
+      <p style="font-size: 0.85rem; opacity: 0.7;">Tous droits réservés</p>
     </div>
   </footer>
 
   <script>
-    // ===== DONNÉES FORMATIONS (TOUT FÒMASYON YO) =====
-    const formationsData = [
-      // ===== FORMATIONS À VENIR (5) =====
+    // ============================================================
+    // 1. DONNÉES FORMATIONS PAR CATEGORIE AVEC IMAGES
+    // ============================================================
+    const categories = [
       {
-        id: 1,
-        title_fr: "L'Évolution de l'IA et son Impact sur les Humains",
-        title_en: "The Evolution of AI and its Impact on Humans",
-        date: "2026-07-28",
-        description_fr: "FORMATION GRATUITE - Découvrez ce qui va arriver dans les jours qui viennent avec l'évolution de l'IA et l'impact de l'IA sur les humains. Apprenez comment utiliser l'IA dans votre apprentissage.",
-        description_en: "FREE TRAINING - Discover what's coming in the days ahead with the evolution of AI and its impact on humans. Learn how to use AI in your learning.",
-        image: "ia2829.jpg",
-        tags_fr: ["IA", "Formation Gratuite", "Impact", "Évolution"],
-        tags_en: ["AI", "Free Training", "Impact", "Evolution"],
-        status: "upcoming",
-        link: "https://meet.google.com/abc-defg-hij"
+        id: 'developpement-personnel',
+        icon: 'fas fa-user-graduate',
+        name_fr: 'Développement Personnel',
+        name_en: 'Personal Development',
+        formations: [
+          {
+            id: 1,
+            title_fr: "Comment se démarquer de la masse ?",
+            title_en: "How to stand out from the crowd?",
+            date: "2026-06-20",
+            description_fr: "Apprenez à vous distinguer dans un monde compétitif en développant votre marque personnelle et vos compétences uniques.",
+            description_en: "Learn to stand out in a competitive world by developing your personal brand and unique skills.",
+            image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop",
+            tags_fr: ["Marque Personnelle", "Confiance"],
+            tags_en: ["Personal Brand", "Confidence"],
+            status: "past",
+            link: "",
+            gratuit: false
+          },
+          {
+            id: 2,
+            title_fr: "Dynamique Entrepreneuriale",
+            title_en: "Entrepreneurial Dynamics",
+            date: "2026-07-21",
+            description_fr: "Débloquez votre potentiel d'entrepreneur et bâtissez un avenir à la hauteur de vos ambitions !",
+            description_en: "Unlock your entrepreneurial potential and build a future worthy of your ambitions!",
+            image: "https://images.unsplash.com/photo-1447968954315-3f0c44f7313c?w=600&h=400&fit=crop",
+            tags_fr: ["Entrepreneuriat", "Mindset"],
+            tags_en: ["Entrepreneurship", "Mindset"],
+            status: "past",
+            link: "",
+            gratuit: false
+          },
+          {
+            id: 3,
+            title_fr: "Comment vendre son métier ?",
+            title_en: "How to sell your profession?",
+            date: "2026-08-20",
+            description_fr: "Apprenez à valoriser votre expertise et à vendre vos compétences pour attirer plus de clients.",
+            description_en: "Learn to value your expertise and sell your skills to attract more clients.",
+            image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=400&fit=crop",
+            tags_fr: ["Vente", "Expertise", "Marketing Personnel"],
+            tags_en: ["Sales", "Expertise", "Personal Marketing"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 4,
+            title_fr: "Développer son Leadership",
+            title_en: "Develop your Leadership",
+            date: "2026-09-05",
+            description_fr: "Devenez un leader inspirant qui motive et guide son équipe vers l'excellence.",
+            description_en: "Become an inspiring leader who motivates and guides your team to excellence.",
+            image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop",
+            tags_fr: ["Leadership", "Gestion d'Équipe"],
+            tags_en: ["Leadership", "Team Management"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 20,
+            title_fr: "Gestion du stress et des émotions",
+            title_en: "Stress and Emotion Management",
+            date: "2026-09-18",
+            description_fr: "Apprenez à gérer votre stress et vos émotions pour améliorer votre bien-être et votre performance au travail.",
+            description_en: "Learn to manage your stress and emotions to improve your well-being and performance at work.",
+            image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop",
+            tags_fr: ["Stress", "Émotions", "Bien-être"],
+            tags_en: ["Stress", "Emotions", "Well-being"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 21,
+            title_fr: "Communication efficace et assertivité",
+            title_en: "Effective Communication and Assertiveness",
+            date: "2026-09-25",
+            description_fr: "Développez vos compétences en communication pour exprimer vos idées avec clarté et confiance.",
+            description_en: "Develop your communication skills to express your ideas with clarity and confidence.",
+            image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=400&fit=crop",
+            tags_fr: ["Communication", "Assertivité", "Confiance"],
+            tags_en: ["Communication", "Assertiveness", "Confidence"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          }
+        ]
       },
       {
-        id: 2,
-        title_fr: "Protection et Sécurité de vos Données",
-        title_en: "Data Protection and Security",
-        date: "2026-07-30",
-        description_fr: "Apprenez à protéger vos données personnelles et professionnelles. Comprendre les menaces, les bonnes pratiques et les outils pour sécuriser vos informations en ligne.",
-        description_en: "Learn to protect your personal and professional data. Understand threats, best practices and tools to secure your online information.",
-        image: "securite.jpg",
-        tags_fr: ["Sécurité", "Protection", "Données", "Vie Privée"],
-        tags_en: ["Security", "Protection", "Data", "Privacy"],
-        status: "upcoming",
-        link: "https://meet.google.com/abc-defg-hij"
+        id: 'marketing-digital',
+        icon: 'fas fa-bullhorn',
+        name_fr: 'Marketing Digital',
+        name_en: 'Digital Marketing',
+        formations: [
+          {
+            id: 5,
+            title_fr: "Utilisation Efficace des Réseaux Sociaux",
+            title_en: "Effective Use of Social Networks",
+            date: "2026-08-02",
+            description_fr: "Apprenez à utiliser Facebook, Instagram et TikTok pour vendre vos produits et services.",
+            description_en: "Learn to use Facebook, Instagram and TikTok to sell your products and services.",
+            image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&h=400&fit=crop",
+            tags_fr: ["Facebook", "Instagram", "TikTok"],
+            tags_en: ["Facebook", "Instagram", "TikTok"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 6,
+            title_fr: "Utilisation Efficace de WhatsApp",
+            title_en: "Effective Use of WhatsApp",
+            date: "2026-08-25",
+            description_fr: "Exploitez WhatsApp Business pour communiquer efficacement avec vos clients et augmenter vos ventes.",
+            description_en: "Leverage WhatsApp Business to effectively communicate with your customers and boost your sales.",
+            image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=600&h=400&fit=crop",
+            tags_fr: ["WhatsApp", "Communication", "Vente"],
+            tags_en: ["WhatsApp", "Communication", "Sales"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 7,
+            title_fr: "Marketing Relationnel et Fidélisation",
+            title_en: "Relational Marketing and Loyalty",
+            date: "2026-09-12",
+            description_fr: "Apprenez à fidéliser vos clients en créant une relation de confiance durable avec eux.",
+            description_en: "Learn to retain your customers by creating a lasting trust relationship with them.",
+            image: "https://images.unsplash.com/photo-1552581234-26160f608093?w=600&h=400&fit=crop",
+            tags_fr: ["Fidélisation", "Relation Client"],
+            tags_en: ["Loyalty", "Customer Relationship"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          }
+        ]
       },
       {
-        id: 3,
-        title_fr: "Utilisation Efficace des Réseaux Sociaux",
-        title_en: "Effective Use of Social Networks",
-        date: "2026-08-02",
-        description_fr: "Apprenez à utiliser Facebook et TikTok pour vendre vos produits et services. Stratégies de marketing digital, création de contenu engageant et techniques de vente sur les réseaux sociaux.",
-        description_en: "Learn to use Facebook and TikTok to sell your products and services. Digital marketing strategies, engaging content creation and sales techniques on social networks.",
-        image: "network.jpg",
-        tags_fr: ["Facebook", "TikTok", "Marketing Digital", "Vente"],
-        tags_en: ["Facebook", "TikTok", "Digital Marketing", "Sales"],
-        status: "upcoming",
-        link: "https://meet.google.com/abc-defg-hij"
+        id: 'ia-technologie',
+        icon: 'fas fa-robot',
+        name_fr: 'IA & Technologie',
+        name_en: 'AI & Technology',
+        formations: [
+          {
+            id: 8,
+            title_fr: "L'Évolution de l'IA et son Impact sur les Humains",
+            title_en: "The Evolution of AI and its Impact on Humans",
+            date: "2026-07-28",
+            description_fr: "FORMATION GRATUITE - Découvrez ce qui va arriver dans les jours qui viennent avec l'évolution de l'IA.",
+            description_en: "FREE TRAINING - Discover what's coming in the days ahead with the evolution of AI.",
+            image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
+            tags_fr: ["IA", "Gratuit", "Impact"],
+            tags_en: ["AI", "Free", "Impact"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: true
+          },
+          {
+            id: 9,
+            title_fr: "Comment utiliser les outils IA ?",
+            title_en: "How to use AI tools?",
+            date: "2026-09-15",
+            description_fr: "Découvrez comment utiliser ChatGPT, Gemini, Claude et d'autres outils IA pour booster votre productivité.",
+            description_en: "Discover how to use ChatGPT, Gemini, Claude and other AI tools to boost your productivity.",
+            image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&h=400&fit=crop",
+            tags_fr: ["IA", "ChatGPT", "Productivité"],
+            tags_en: ["AI", "ChatGPT", "Productivity"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 14,
+            title_fr: "Cybersécurité pour tous",
+            title_en: "Cybersecurity for Everyone",
+            date: "2026-09-22",
+            description_fr: "Protégez-vous contre les cyberattaques et apprenez les bonnes pratiques de sécurité en ligne.",
+            description_en: "Protect yourself against cyberattacks and learn online security best practices.",
+            image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop",
+            tags_fr: ["Cybersécurité", "Protection"],
+            tags_en: ["Cybersecurity", "Protection"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          }
+        ]
       },
-      // ===== FORMATIONS PASSÉES (3) =====
       {
-        id: 6,
-        title_fr: "Comment se démarquer de la masse ?",
-        title_en: "How to stand out from the crowd?",
-        date: "2026-06-20",
-        description_fr: "Développement personnel - Apprenez à vous distinguer dans un monde compétitif en développant votre marque personnelle et vos compétences uniques.",
-        description_en: "Personal development - Learn to stand out in a competitive world by developing your personal brand and unique skills.",
-        image: "decision.png",
-        tags_fr: ["Développement Personnel", "Marque Personnelle"],
-        tags_en: ["Personal Development", "Personal Brand"],
-        status: "past",
-        link: ""
+        id: 'securite',
+        icon: 'fas fa-shield-alt',
+        name_fr: 'Sécurité & Protection des Données',
+        name_en: 'Security & Data Protection',
+        formations: [
+          {
+            id: 10,
+            title_fr: "Protection et Sécurité de vos Données",
+            title_en: "Data Protection and Security",
+            date: "2026-07-30",
+            description_fr: "Apprenez à protéger vos données personnelles et professionnelles contre les menaces en ligne.",
+            description_en: "Learn to protect your personal and professional data against online threats.",
+            image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&h=400&fit=crop",
+            tags_fr: ["Sécurité", "Données", "Protection"],
+            tags_en: ["Security", "Data", "Protection"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 15,
+            title_fr: "RGPD : Comment protéger les données personnelles ?",
+            title_en: "GDPR: How to protect personal data?",
+            date: "2026-08-10",
+            description_fr: "Comprenez le RGPD et apprenez à collecter, stocker et traiter les données personnelles en conformité.",
+            description_en: "Understand GDPR and learn to collect, store and process personal data in compliance.",
+            image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&h=400&fit=crop",
+            tags_fr: ["RGPD", "Données Personnelles", "Conformité"],
+            tags_en: ["GDPR", "Personal Data", "Compliance"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 16,
+            title_fr: "Sécurité des mots de passe et authentification",
+            title_en: "Password Security and Authentication",
+            date: "2026-08-18",
+            description_fr: "Apprenez à créer des mots de passe forts et à utiliser l'authentification à deux facteurs pour protéger vos comptes.",
+            description_en: "Learn to create strong passwords and use two-factor authentication to protect your accounts.",
+            image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=600&h=400&fit=crop",
+            tags_fr: ["Mots de passe", "Authentification", "Sécurité"],
+            tags_en: ["Passwords", "Authentication", "Security"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 17,
+            title_fr: "Protection contre les arnaques en ligne",
+            title_en: "Protection against online scams",
+            date: "2026-09-01",
+            description_fr: "Identifiez et évitez les arnaques, phishing et escroqueries sur Internet pour protéger vos informations.",
+            description_en: "Identify and avoid scams, phishing and fraud on the Internet to protect your information.",
+            image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&h=400&fit=crop",
+            tags_fr: ["Phishing", "Arnaques", "Protection"],
+            tags_en: ["Phishing", "Scams", "Protection"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 18,
+            title_fr: "Sécurité des données sur les réseaux sociaux",
+            title_en: "Data Security on Social Networks",
+            date: "2026-09-10",
+            description_fr: "Protégez vos informations personnelles sur Facebook, Instagram, TikTok et autres plateformes.",
+            description_en: "Protect your personal information on Facebook, Instagram, TikTok and other platforms.",
+            image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=600&h=400&fit=crop",
+            tags_fr: ["Réseaux Sociaux", "Vie Privée", "Protection"],
+            tags_en: ["Social Networks", "Privacy", "Protection"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 19,
+            title_fr: "Sauvegarde et récupération des données",
+            title_en: "Backup and Data Recovery",
+            date: "2026-09-20",
+            description_fr: "Apprenez à sauvegarder vos données et à les récupérer en cas de perte ou de panne.",
+            description_en: "Learn to back up your data and recover it in case of loss or failure.",
+            image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=400&fit=crop",
+            tags_fr: ["Sauvegarde", "Récupération", "Données"],
+            tags_en: ["Backup", "Recovery", "Data"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          }
+        ]
       },
       {
-        id: 7,
-        title_fr: "Kijan w itilize rezo sosyo yo ?",
-        title_en: "How to use social networks?",
-        date: "2026-07-14",
-        description_fr: "Apprenez à utiliser les réseaux sociaux de manière stratégique pour développer votre présence en ligne et votre réseau professionnel.",
-        description_en: "Learn to use social networks strategically to develop your online presence and professional network.",
-        image: "rezososyo.jpg",
-        tags_fr: ["Rezo Sosyal", "Réseaux Sociaux", "Communication"],
-        tags_en: ["Social Networks", "Communication"],
-        status: "past",
-        link: ""
-      },
-      {
-        id: 8,
-        title_fr: "Dynamique Entrepreneuriale",
-        title_en: "Entrepreneurial Dynamics",
-        date: "2026-07-21",
-        description_fr: "Débloquez votre potentiel d'entrepreneur et bâtissez un avenir à la hauteur de vos ambitions ! Développez votre mindset d'entrepreneur, fixez des objectifs clairs et boostez votre confiance.",
-        description_en: "Unlock your entrepreneurial potential and build a future worthy of your ambitions! Develop your entrepreneurial mindset, set clear goals and boost your confidence.",
-        image: "dynamique.jpg",
-        tags_fr: ["Entrepreneuriat", "Développement Personnel", "Mindset"],
-        tags_en: ["Entrepreneurship", "Personal Development", "Mindset"],
-        status: "past",
-        link: ""
+        id: 'reseau-sociaux',
+        icon: 'fas fa-share-alt',
+        name_fr: 'Réseaux Sociaux',
+        name_en: 'Social Networks',
+        formations: [
+          {
+            id: 11,
+            title_fr: "Kijan w itilize rezo sosyo yo ?",
+            title_en: "How to use social networks?",
+            date: "2026-07-14",
+            description_fr: "Apprenez à utiliser les réseaux sociaux stratégiquement pour développer votre présence en ligne.",
+            description_en: "Learn to use social networks strategically to develop your online presence.",
+            image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&h=400&fit=crop",
+            tags_fr: ["Réseaux Sociaux", "Communication"],
+            tags_en: ["Social Networks", "Communication"],
+            status: "past",
+            link: "",
+            gratuit: false
+          },
+          {
+            id: 12,
+            title_fr: "Utilisation Efficace de Facebook",
+            title_en: "Effective Use of Facebook",
+            date: "2026-09-01",
+            description_fr: "Maîtrisez Facebook pour promouvoir votre activité et interagir efficacement avec votre communauté.",
+            description_en: "Master Facebook to promote your business and interact effectively with your community.",
+            image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&h=400&fit=crop",
+            tags_fr: ["Facebook", "Communauté", "Promotion"],
+            tags_en: ["Facebook", "Community", "Promotion"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          },
+          {
+            id: 13,
+            title_fr: "Utilisation Efficace de TikTok",
+            title_en: "Effective Use of TikTok",
+            date: "2026-09-08",
+            description_fr: "Exploitez TikTok pour créer du contenu viral et atteindre un public plus large.",
+            description_en: "Leverage TikTok to create viral content and reach a wider audience.",
+            image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=600&h=400&fit=crop",
+            tags_fr: ["TikTok", "Viral", "Contenu"],
+            tags_en: ["TikTok", "Viral", "Content"],
+            status: "upcoming",
+            link: "https://meet.google.com/abc-defg-hij",
+            gratuit: false
+          }
+        ]
       }
     ];
 
+    // ============================================================
+    // 2. ÉTAT
+    // ============================================================
     let currentLang = 'fr';
     let currentFilter = 'all';
     let currentFormationId = null;
 
-    // ===== MENU MOBILE =====
+    // ============================================================
+    // 3. MENU MOBILE
+    // ============================================================
     function openMobileMenu() {
       document.getElementById('mobileMenu').classList.add('open');
       document.getElementById('mobileOverlay').classList.add('active');
@@ -935,86 +1270,170 @@
       }
     });
 
-    // ===== AFFICHER FORMATIONS =====
+    // ============================================================
+    // 4. FONCTIONS UTILES
+    // ============================================================
+    function isPast(dateStr) {
+      return new Date(dateStr) < new Date();
+    }
+
+    function getStatus(dateStr, currentStatus) {
+      if (currentStatus === 'past') return 'past';
+      if (isPast(dateStr)) return 'past';
+      return 'upcoming';
+    }
+
+    // ============================================================
+    // 5. AFFICHER FORMATIONS
+    // ============================================================
     function renderFormations(filter) {
       currentFilter = filter;
-      const container = document.getElementById('formationsList');
-      let data = formationsData;
-      if (filter === 'upcoming') data = data.filter(f => f.status === 'upcoming');
-      else if (filter === 'past') data = data.filter(f => f.status === 'past');
-      data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const container = document.getElementById('formationsContainer');
 
-      if (data.length === 0) {
+      let filteredCategories = categories.map(cat => {
+        const updatedFormations = cat.formations.map(f => ({
+          ...f,
+          status: getStatus(f.date, f.status)
+        }));
+
+        let formations = updatedFormations;
+        if (filter === 'upcoming') {
+          formations = formations.filter(f => f.status === 'upcoming');
+        } else if (filter === 'past') {
+          formations = formations.filter(f => f.status === 'past');
+        }
+
+        return {
+          ...cat,
+          formations: formations
+        };
+      });
+
+      filteredCategories = filteredCategories.filter(cat => cat.formations.length > 0);
+
+      if (filteredCategories.length === 0) {
         container.innerHTML = `
-          <div style="grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--noir-clair);">
+          <div style="text-align:center; padding:60px 20px; color:var(--noir-clair);">
             <i class="fas fa-calendar-alt" style="font-size:3rem; display:block; margin-bottom:15px; color:var(--rouge);"></i>
-            <span data-key="no-trainings">Aucune formation trouvée.</span>
+            <span>Aucune formation trouvée pour ce filtre.</span>
           </div>
         `;
         return;
       }
 
-      container.innerHTML = data.map(f => {
-        const isFr = currentLang === 'fr';
-        const title = isFr ? f.title_fr : f.title_en;
-        const description = isFr ? f.description_fr : f.description_en;
-        const tags = isFr ? f.tags_fr : f.tags_en;
-        const statusLabel = isFr ? (f.status === 'upcoming' ? 'À venir' : 'Passée') : (f.status === 'upcoming' ? 'Upcoming' : 'Past');
+      const isFr = currentLang === 'fr';
 
-        let imageHtml;
-        if (f.image) {
-          imageHtml = `<img src="${f.image}" alt="${title}" class="card-img" loading="lazy">`;
-        } else {
-          imageHtml = `
-            <div class="card-img-default">
-              <div>
-                <i class="fas fa-graduation-cap"></i>
-                <span>${title.substring(0, 30)}</span>
-              </div>
-            </div>
-          `;
-        }
-
-        const joinHtml = (f.status !== 'past' && f.link) ?
-          `<a href="${f.link}" target="_blank" class="btn-join"><i class="fas fa-video"></i> ${isFr ? 'Rejoindre' : 'Join'}</a>` :
-          '';
+      container.innerHTML = filteredCategories.map(cat => {
+        const catName = isFr ? cat.name_fr : cat.name_en;
 
         return `
-          <div class="card">
-            ${imageHtml}
-            <div class="card-body">
-              <span class="status ${f.status}">${statusLabel}</span>
-              <h3>${title}</h3>
-              <div class="date"><i class="fas fa-calendar-alt"></i> ${new Date(f.date).toLocaleDateString(isFr ? 'fr-FR' : 'en-US', {day:'numeric', month:'long', year:'numeric'})}</div>
-              <div class="desc">${description}</div>
-              <div class="tags">
-                ${tags.map(t => `<span>${t}</span>`).join('')}
-              </div>
-              <div class="btn-group">
-                <button class="btn-inscription" onclick="openInscription(${f.id})"><i class="fas fa-pen"></i> ${isFr ? "S'inscrire" : 'Register'}</button>
-                ${joinHtml}
-              </div>
+          <div class="category-section">
+            <div class="category-title">
+              <i class="${cat.icon}"></i>
+              ${catName}
+            </div>
+            <div class="category-divider"></div>
+            <div class="grid">
+              ${cat.formations.map(f => {
+                const title = isFr ? f.title_fr : f.title_en;
+                const desc = isFr ? f.description_fr : f.description_en;
+                const tags = isFr ? f.tags_fr : f.tags_en;
+                const statusLabel = isFr ? (f.status === 'upcoming' ? 'À venir' : 'Passée') : (f.status === 'upcoming' ? 'Upcoming' : 'Past');
+
+                let imageHtml;
+                if (f.image) {
+                  imageHtml = `<img src="${f.image}" alt="${title}" class="card-img" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop'">`;
+                } else {
+                  const iconMap = {
+                    'Développement Personnel': 'fa-user-graduate',
+                    'Personal Development': 'fa-user-graduate',
+                    'Marketing Digital': 'fa-bullhorn',
+                    'Digital Marketing': 'fa-bullhorn',
+                    'IA & Technologie': 'fa-robot',
+                    'AI & Technology': 'fa-robot',
+                    'Sécurité & Protection des Données': 'fa-shield-alt',
+                    'Security & Data Protection': 'fa-shield-alt',
+                    'Réseaux Sociaux': 'fa-share-alt',
+                    'Social Networks': 'fa-share-alt'
+                  };
+                  const icon = iconMap[catName] || 'fa-graduation-cap';
+                  imageHtml = `
+                    <div class="card-img-default">
+                      <div>
+                        <i class="fas ${icon}"></i>
+                        <span>${title.substring(0, 25)}</span>
+                      </div>
+                    </div>
+                  `;
+                }
+
+                const isNew = new Date(f.date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+                const joinHtml = (f.status !== 'past' && f.link) ?
+                  `<a href="${f.link}" target="_blank" class="btn-join"><i class="fas fa-video"></i> ${isFr ? 'Rejoindre' : 'Join'}</a>` :
+                  '';
+
+                return `
+                  <div class="card" style="position:relative;">
+                    ${isNew && f.status === 'upcoming' ? '<span class="badge-new">NOUVEAU</span>' : ''}
+                    ${f.gratuit && f.status === 'upcoming' ? '<span class="badge-gratuit">GRATUIT</span>' : ''}
+                    ${imageHtml}
+                    <div class="card-body">
+                      <span class="status ${f.status}">${statusLabel}</span>
+                      <h3>${title}</h3>
+                      <div class="date"><i class="fas fa-calendar-alt"></i> ${new Date(f.date).toLocaleDateString(isFr ? 'fr-FR' : 'en-US', {day:'numeric', month:'long', year:'numeric'})}</div>
+                      <div class="desc">${desc}</div>
+                      <div class="tags">
+                        ${tags.map(t => `<span>${t}</span>`).join('')}
+                      </div>
+                      <div class="btn-group">
+                        ${f.status === 'upcoming' ? `<button class="btn-inscription" onclick="openInscription(${f.id})"><i class="fab fa-whatsapp"></i> ${isFr ? "S'inscrire" : 'Register'}</button>` : ''}
+                        ${joinHtml}
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
             </div>
           </div>
         `;
       }).join('');
     }
 
-    // ===== FILTRES =====
+    // ============================================================
+    // 6. FILTRES
+    // ============================================================
     function filterFormations(filter) {
       document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
       document.querySelector(`.filters button[data-filter="${filter}"]`).classList.add('active');
       renderFormations(filter);
     }
 
-    // ===== MODAL INSCRIPTION =====
+    // ============================================================
+    // 7. MODAL INSCRIPTION VIA WHATSAPP
+    // ============================================================
+    // NUMERO WHATSAPP - MODIFIE ICI
+    const WHATSAPP_NUMBER = '50944725964';
+    const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+
     function openInscription(id) {
-      const f = formationsData.find(item => item.id === id);
-      if (!f) return;
+      let formation = null;
+      for (const cat of categories) {
+        const found = cat.formations.find(f => f.id === id);
+        if (found) {
+          formation = found;
+          break;
+        }
+      }
+      if (!formation) return;
+
       currentFormationId = id;
       const isFr = currentLang === 'fr';
       document.getElementById('modalFormationId').value = id;
-      document.getElementById('modalFormationInfo').textContent = `${isFr ? f.title_fr : f.title_en} - ${new Date(f.date).toLocaleDateString(isFr ? 'fr-FR' : 'en-US', {day:'numeric', month:'long', year:'numeric'})}`;
+      document.getElementById('modalFormationInfo').innerHTML = `
+        <i class="fas fa-info-circle" style="color:#25D366;"></i>
+        <strong>${isFr ? formation.title_fr : formation.title_en}</strong><br>
+        ${new Date(formation.date).toLocaleDateString(isFr ? 'fr-FR' : 'en-US', {day:'numeric', month:'long', year:'numeric'})}
+      `;
       document.getElementById('inscriptionModal').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -1025,7 +1444,9 @@
       document.body.style.overflow = '';
     }
 
-    // ===== SOUMETTRE INSCRIPTION =====
+    // ============================================================
+    // 8. SOUMETTRE INSCRIPTION - ENVOI VERS WHATSAPP
+    // ============================================================
     function submitInscription(e) {
       e.preventDefault();
       const nom = document.getElementById('nom').value.trim();
@@ -1033,16 +1454,36 @@
       const email = document.getElementById('email').value.trim();
       const telephone = document.getElementById('telephone').value.trim();
 
-      if (!nom || !prenom || !email) {
+      if (!nom || !prenom || !email || !telephone) {
         alert('Veuillez remplir tous les champs obligatoires (*)');
         return;
       }
 
+      // Récupérer le nom de la formation
+      let formationTitle = '';
+      for (const cat of categories) {
+        const found = cat.formations.find(f => f.id === parseInt(document.getElementById('modalFormationId').value));
+        if (found) {
+          formationTitle = currentLang === 'fr' ? found.title_fr : found.title_en;
+          break;
+        }
+      }
+
+      // Construire le message pour WhatsApp
+      const message = `Bonjour HECEFOP !%0A%0A📝 *Demande d'inscription*%0A%0A👤 Nom: ${nom}%0A👤 Prénom: ${prenom}%0A📧 Email: ${email}%0A📱 Téléphone: ${telephone}%0A📚 Formation: ${formationTitle}%0A%0AMerci de me confirmer mon inscription.`;
+
+      // Construire l'URL WhatsApp
+      const whatsappUrl = `${WHATSAPP_URL}?text=${message}`;
+
+      // Fermer la modale et ouvrir WhatsApp
       closeInscriptionModal();
+      
+      // Ouvrir WhatsApp dans un nouvel onglet
+      window.open(whatsappUrl, '_blank');
+
+      // Afficher la confirmation
       document.getElementById('confirmModal').classList.add('active');
       document.body.style.overflow = 'hidden';
-
-      console.log('Inscription:', { nom, prenom, email, telephone, formationId: currentFormationId });
     }
 
     function closeConfirmModal() {
@@ -1051,55 +1492,24 @@
       document.getElementById('inscriptionForm').reset();
     }
 
-    // ===== LANGUE =====
-    const translations = {
-      fr: {
-        'nav-home': 'Accueil', 'nav-about': 'À propos', 'nav-trainings': 'Formations',
-        'nav-blog': 'Blog', 'nav-contact': 'Contact',
-        'header-desc': 'Découvrez toutes nos formations passées et à venir. Inscrivez-vous dès maintenant !',
-        'back-home': 'Retour à l\'accueil',
-        'filter-all': 'Toutes',
-        'filter-upcoming': 'À venir',
-        'filter-past': 'Passées',
-        'no-trainings': 'Aucune formation trouvée.',
-        'footer-text': '© 2026 HECEFOP - Centre de Formation Professionnelle',
-        'footer-rights': 'Tous droits réservés'
-      },
-      en: {
-        'nav-home': 'Home', 'nav-about': 'About', 'nav-trainings': 'Trainings',
-        'nav-blog': 'Blog', 'nav-contact': 'Contact',
-        'header-desc': 'Discover all our past and upcoming trainings. Register now!',
-        'back-home': 'Back to home',
-        'filter-all': 'All',
-        'filter-upcoming': 'Upcoming',
-        'filter-past': 'Past',
-        'no-trainings': 'No trainings found.',
-        'footer-text': '© 2026 HECEFOP - Professional Training Center',
-        'footer-rights': 'All rights reserved'
-      }
-    };
-
+    // ============================================================
+    // 9. LANGUE
+    // ============================================================
     function switchLang(lang) {
       currentLang = lang;
       document.querySelectorAll('.lang-toggle button, .mobile-lang button').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
       });
-      document.querySelectorAll('[data-key]').forEach(el => {
-        const key = el.dataset.key;
-        if (translations[lang] && translations[lang][key]) {
-          el.textContent = translations[lang][key];
-        }
-      });
       renderFormations(currentFilter);
     }
 
-    // ===== INIT =====
+    // ============================================================
+    // 10. INIT
+    // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
       renderFormations('all');
-      switchLang('fr');
     });
 
-    // ===== FERMER MODALS EN CLIQUANT SUR OVERLAY =====
     document.getElementById('inscriptionModal').addEventListener('click', function(e) {
       if (e.target === this) closeInscriptionModal();
     });
